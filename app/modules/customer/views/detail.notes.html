@@ -1,0 +1,33 @@
+<form name="form" class="form-horizontal" novalidate>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.status.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Status:</label>
+    <div class="col-sm-2">
+      <select name="status" pf-select data-ng-model="view.status" data-ng-options="item.value as item.name for item in combo.status" required>
+      </select>
+      <div data-ng-messages="form.status.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Insert status.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" data-ng-class="{ 'has-error' : form.notes.$invalid && form.$submitted }">
+    <label class="col-sm-2 control-label"><span class="required">*</span> Notes:</label>
+    <div class="col-sm-3">
+      <textarea name="notes" type="text" data-ng-model="view.notes" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required></textarea>
+      <div data-ng-messages="form.notes.$error" data-ng-if="form.$submitted">
+        <div class="has-error" data-ng-message="required">Insert notes.</div>
+        <div class="has-error" data-ng-message="minlength">Insert notes.</div>
+        <div class="has-error" data-ng-message="maxlength">Too large, max 200 chars.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button sg-save ng-disabled="working">
+        <span ng-show="working">Saving...</span>
+        <span ng-hide="working">Save</span>
+      </button>
+      <button type="button" class="btn btn-default" ng-disabled="working" data-ng-click="clear()">Cancel</button>
+    </div>
+  </div>
+</form>

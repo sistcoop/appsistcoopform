@@ -1,0 +1,69 @@
+<div ncy-breadcrumb></div>
+<h1>
+  <strong>Customers</strong>
+</h1>
+<hr>
+<form role="form">
+  <div class="row vdivide">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <div class="input-group">
+          <select pf-select="{ noneSelectedText: '$' }" data-ng-model="filterOptions.filterBy" data-ng-options="item.value as item.name for item in combo.filterBy">
+            <option value="">No Filter</option>
+          </select>
+          <input type="text" name="filterText" class="form-control" data-ng-model="filterOptions.filter[filterOptions.filterBy]" placeholder="Filter By {{filterOptions.filterBy}}..." pf-focused="true" autofocus>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="input-group" style="font-size: 20px; line-height: 1.5em;">
+          <select name="orderBy" pf-select data-ng-model="filterOptions.orderBy" data-ng-options="item as item.name for item in combo.orderBy">
+            <option value="">No Order By</option>
+          </select>
+          &nbsp;&nbsp;<span class="fa fa-sort-alpha-asc"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" data-ng-click="search()" class="btn btn-link"><span class="fa fa-search"></span> Search</button>
+    </div>
+  </div>
+</form>
+<hr>
+
+<table class="table table-striped table-bordered table-hover table-responsive">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Customer name</th>
+    <th>Id</th>
+    <th>Product name</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr data-ng-repeat="row in customers | filter: filterOptions.filter | orderBy: filterOptions.orderBy.value">
+    <td width="8"><span data-ng-bind="$index + 1"></span></td>
+    <td><span data-ng-bind="row.customername"></span></td>
+    <td><span data-ng-bind="row.id"></span></td>
+    <td><span data-ng-bind="row.productname"></span></td>
+    <td><span data-ng-bind="row.status"></span></td>
+    <td width="10">
+      <button type="button" data-ng-click="edit(row)" class="btn btn-default btn-xs">
+        <i class="pficon pficon-edit"></i>
+        <span>&nbsp;Detail&nbsp;&nbsp;</span>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ul class="pager">
+  <li class="next">
+    <a href="" data-ng-click="refresh()">
+      <span class="pficon pficon-refresh"></span>
+      Refresh
+    </a>
+  </li>
+</ul>

@@ -1,0 +1,90 @@
+<div ncy-breadcrumb></div>
+<h1>
+  <strong>Customer:</strong>&nbsp;
+  <span data-ng-bind="customerDetail.customername"></span>
+</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top">
+          <legend><span class="text ng-scope">Principal information <i class="fa fa-question-circle text-muted ng-scope"
+                                                            uib-tooltip="Principal information of the current customer."
+                                                            uib-tooltip-placement="right"></i></span></legend>
+          <dl class="dl-horizontal left">
+            <dt>Customer name:</dt>
+            <dd data-ng-bind="customerDetail.customername"></dd>
+            <dt>Customer id:</dt>
+            <dd data-ng-bind="customerDetail.id"></dd>
+            <dt>Product name:</dt>
+            <dd data-ng-bind="customerDetail.productname"></dd>
+            <dt>Status:</dt>
+            <dd data-ng-bind="customerDetail.status"></dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="border-top">
+          <legend><span class="text ng-scope">Contact information <i class="fa fa-question-circle text-muted ng-scope"
+                                                                       uib-tooltip="Contact information of the current customer."
+                                                                       uib-tooltip-placement="right"></i></span></legend>
+          <dl class="dl-horizontal left">
+            <dt class="visible-xs visible-sm visible-md visible-lg">Skype number:</dt>
+            <dd class="visible-xs visible-sm visible-md visible-lg" data-ng-repeat="item in customerDetail.communications | filter: {'category': 'Skype'}">
+              <a class="fa fa-skype"></a>
+              <a target="_self" ng-href="skype:{{item.value}}?chat&topic=this+fails">{{item.value}}</a>
+            </dd>
+            <dt class="visible-xs visible-sm">Phone number:</dt>
+            <dd class="visible-xs visible-sm" data-ng-repeat="item in customerDetail.communications | filter: {'category': 'Phone'}">
+              <span class="fa fa-phone"></span>
+              {{item.value}}
+            </dd>
+            <dt class="visible-xs visible-sm visible-md visible-lg">Email:</dt>
+            <dd class="visible-xs visible-sm visible-md visible-lg" data-ng-repeat="item in customerDetail.communications | filter: {'category': 'Email'}">
+              <a class="fa fa-envelope"></a>
+              <a target="_self" ng-href="mailto:{{item.value}}?subject=Contact%20email&body=Hello">{{item.value}}</a>
+            </dd>
+            <dt class="visible-xs visible-sm visible-md visible-lg">Office address:</dt>
+            <dd class="visible-xs visible-sm visible-md visible-lg" data-ng-repeat="item in customerDetail.addresses">
+              <ul class="list-unstyled">
+                <li>{{item.street1}}, {{item.street2}} Street</li>
+                <li>{{item.city}}</li>
+                <li>{{item.state}} {{item.pincode}}&nbsp;-&nbsp;{{item.country}}</li>
+              </ul>
+            </dd>
+          </dl>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div>
+      <div class="tab-container">
+        <ul class="nav nav-tabs">
+          <li ui-sref-active="active">
+            <a href ui-sref=".notes">
+              <i class="glyphicon glyphicon-file"></i> Notes
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a href ui-sref=".visit">
+              <i class="fa fa-male"></i> Visit
+            </a>
+          </li>
+        </ul>
+        <div class="tab-pane">
+          <br/>
+          <div ui-view></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
