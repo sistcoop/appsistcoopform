@@ -4,6 +4,8 @@
 angular.module('formulario').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/formularios/app/encuesta/encuestas', '/formularios/app/encuesta/encuestas/buscar');
+
     $stateProvider
       .state('formulario', {
         abstract: true,

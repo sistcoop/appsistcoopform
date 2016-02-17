@@ -6,7 +6,7 @@ angular.module('formulario').run(['Menus',
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
       title: 'Formularios',
-      state: 'app.formulario'
+      state: 'formulario.app'
     });
 	}
 ]);

@@ -85,13 +85,13 @@ angular.module('formulario').service('$menuItemsFormulario', ['Auth',
       //}
 
       var menu01 = this.addItem('Encuestas', '');
-      var menu02 = this.addItem('Menu02', '');
+      //var menu02 = this.addItem('Menu02', '');
 
       //if (rolesSession.indexOf('ver-direccionesRegionales') !== -1) {
       menu01.addItem('Encuestas', 'formulario.app.menu01.encuesta');
       //}
 
-      menu02.addItem('SubMenu02', '');
+      //menu02.addItem('SubMenu02', 'formulario.app.menu01');
 
       return this;
     };
