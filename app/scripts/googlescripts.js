@@ -52,7 +52,7 @@ function handleAuthClick(event) {
  */
 function callScriptFunction() {
   //var scriptId = "ENTER_YOUR_SCRIPT_ID_HERE";
-  var scriptId = 'https://script.google.com/macros/s/AKfycbwQYUPsEjCQlWlej-Y-vGsWPZy67ON_Ss_X9Ae7_h5HAG9L_rs/exec';
+  var scriptId = 'MA3nzSETJhhjph5SI8jgk5A7Sf_dSFFzI';
 
   // Create an execution request object.
   var request = {
