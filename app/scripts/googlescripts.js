@@ -1,6 +1,6 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
-var CLIENT_ID = '1065409891182-dp0t41qvbb82u3aep8mp8p8u8cuird8r.apps.googleusercontent.com';
+var CLIENT_ID = '1065409891182-le53cj85r9a72793r98ejsgokvrlhdmi.apps.googleusercontent.com';
 
 var SCOPES = ['https://www.googleapis.com/auth/drive'];
 
@@ -52,13 +52,18 @@ function handleAuthClick(event) {
  */
 function callScriptFunction() {
   //var scriptId = "ENTER_YOUR_SCRIPT_ID_HERE";
-  var scriptId = 'MA3nzSETJhhjph5SI8jgk5A7Sf_dSFFzI';
+  var scriptId = 'MUoKVF3nPOzeho-5GG-JACsZSlYLOBAKV';
 
   // Create an execution request object.
   var request = {
     //'function': 'getFoldersUnderRoot'
-    'function': 'getForms'
+    'function': 'myFunction',
+    'parameters': [
+      {'name': 'prueba'}
+    ]
   };
+
+
 
   // Make the API request.
   var op = gapi.client.request({
@@ -97,6 +102,7 @@ function callScriptFunction() {
       // Script function returns. Here, the function returns an Apps
       // Script Object with String keys and values, and so the result
       // is treated as a JavaScript object (folderSet).
+      console.log(resp);
       var folderSet = resp.response.result;
       if (Object.keys(folderSet).length == 0) {
         appendPre('No folders returned!');

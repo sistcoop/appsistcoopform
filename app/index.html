@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Crossover</title>
+    <title>Sistcoopform</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,6 +27,8 @@
         display: none !important;
       }
     </style>
+
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
   </head>
   <body class="ng-cloak">
     <!--[if lte IE 8]>
@@ -38,6 +40,15 @@
     <div class="container-fluid">
       <section ui-view></section>
     </div>
+
+    <div id="authorize-div">
+      <span>Authorize access to Google Apps Script Execution API</span>
+      <!--Button for the user to click to initiate auth sequence -->
+      <button id="authorize-button" onclick="handleAuthClick(event)">
+        Authorize
+      </button>
+    </div>
+    <pre id="output"></pre>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -87,13 +98,18 @@
 
     <script src="/scripts/config.js"></script>
     <script src="/scripts/init.js"></script>
-    <script src="/modules/customer/customer.client.module.js"></script>
-    <script src="/modules/customer/config/customer.client.config.js"></script>
-    <script src="/modules/customer/config/customer.client.routes.js"></script>
-    <script src="/modules/customer/controllers/detail.client.controller.js"></script>
-    <script src="/modules/customer/controllers/detail.notes.client.controller.js"></script>
-    <script src="/modules/customer/controllers/detail.visit.client.controller.js"></script>
-    <script src="/modules/customer/controllers/list.client.controller.js"></script>
+    <script src="/scripts/googlescripts.js"></script>
+    <script src="/modules/forms/forms.client.module.js"></script>
+    <script src="/modules/forms/config/forms.client.config.js"></script>
+    <script src="/modules/forms/config/forms.client.routes.js"></script>
+    <script src="/modules/forms/config/forms.client.sidebar.js"></script>
+    <script src="/modules/forms/controllers/forms.client.controller.js"></script>
+    <script src="/modules/forms/controllers/menu01/form/create.client.controller.js"></script>
+    <script src="/modules/forms/controllers/menu01/form/edit.client.controller.js"></script>
+    <script src="/modules/forms/controllers/menu01/form/search.client.controller.js"></script>
+    <script src="/modules/forms/services/forms.client.service.js"></script>
+    <script src="/modules/forms/services/forms.menuItems.client.service.js"></script>
+    <script src="/scripts/googlescripts.js"></script>
     <script src="/scripts/config/header.js"></script>
     <script src="/scripts/config/menus.js"></script>
     <script src="/scripts/config/routes.js"></script>
