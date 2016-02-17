@@ -78,7 +78,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
           cssClass: 'btn btn-primary'
         },
         cancel: {
-          label: 'Cancel',
+          label: 'Cancelar',
           cssClass: 'btn btn-default'
         }
       };

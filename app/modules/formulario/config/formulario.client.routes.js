@@ -4,7 +4,10 @@
 angular.module('formulario').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/formularios/app', '/formularios/app/encuesta');
+    $urlRouterProvider.when('/formularios/app/encuesta', '/formularios/app/encuesta/encuestas');
     $urlRouterProvider.when('/formularios/app/encuesta/encuestas', '/formularios/app/encuesta/encuestas/buscar');
+    //$urlRouterProvider.when('/formularios/app/encuesta/encuestas', ' /formularios/app/encuesta/encuestas/buscar');
 
     $stateProvider
       .state('formulario', {
