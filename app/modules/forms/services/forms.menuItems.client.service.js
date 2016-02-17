@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('formulario').service('$menuItemsFormulario', ['Auth',
+angular.module('forms').service('$menuItemsForms', ['Auth',
   function (Auth) {
 
     this.menuItems = [];
@@ -88,7 +88,7 @@ angular.module('formulario').service('$menuItemsFormulario', ['Auth',
       //var menu02 = this.addItem('Menu02', '');
 
       //if (rolesSession.indexOf('ver-direccionesRegionales') !== -1) {
-      menu01.addItem('Encuestas', 'formulario.app.menu01.encuesta');
+      menu01.addItem('Encuestas', 'forms.app.menu01.form');
       //}
 
       //menu02.addItem('SubMenu02', 'formulario.app.menu01');
