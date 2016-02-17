@@ -1,45 +1,37 @@
 'use strict';
 
 // Setting up route
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$stateProvider', '$urlRouterProvider',
+angular.module('mean').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/app', '/app/home');
-    $urlRouterProvider.otherwise('/app/home');
+    $urlRouterProvider.otherwise('/');
 
-    var checkLogin = function ($q, $timeout, $location, Auth) {
-      var deferred = $q.defer();
-      if (Auth.isAuthenticated()) {
-        $timeout(deferred.resolve);
-      } else {
-        $timeout(deferred.reject);
-        $location.path('/login');
-      }
-      return deferred.promise;
-    };
-
-    // State routing
+    // Home state routing
     $stateProvider
-      .state('login', {
-        url: '/login',
-        templateUrl: 'login.html',
-        controller: 'LoginController'
+      .state('home', {
+        url: '/',
+        templateUrl: 'home.html'
       })
-      .state('app', {
-        url: '/app',
-        templateUrl: 'app.html',
-        resolve: {
-          loggedin: function ($q, $timeout, $location, Auth) {
-            return checkLogin($q, $timeout, $location, Auth);
-          }
-        },
-        ncyBreadcrumb: {
-          label: 'Home'
+      .state('not-found', {
+        url: '/not-found',
+        templateUrl: '404.html',
+        data: {
+          ignoreState: true
         }
       })
-      .state('app.home', {
-        url: '/home',
-        templateUrl: 'home.html'
+      .state('bad-request', {
+        url: '/bad-request',
+        templateUrl: '400.html',
+        data: {
+          ignoreState: true
+        }
+      })
+      .state('forbidden', {
+        url: '/forbidden',
+        templateUrl: '403.html',
+        data: {
+          ignoreState: true
+        }
       });
 
   }
