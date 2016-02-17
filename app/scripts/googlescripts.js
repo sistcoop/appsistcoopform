@@ -57,9 +57,8 @@ function callScriptFunction() {
   // Create an execution request object.
   var request = {
     //'function': 'getFoldersUnderRoot'
-    'function': 'myFunction',
+    'function': 'doGet',
     'parameters': [
-      {'name': 'prueba'}
     ]
   };
 
