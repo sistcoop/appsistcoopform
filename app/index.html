@@ -34,7 +34,10 @@
     <![endif]-->
 
     <!-- Application content here -->
-    <div ui-view></div>
+    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf"></nav>
+    <div class="container-fluid">
+      <section ui-view></section>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -60,6 +63,7 @@
     <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/br-validations/releases/br-validations.js"></script>
+    <script src="bower_components/string-mask/src/string-mask.js"></script>
     <script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="bower_components/angular-breadcrumb/release/angular-breadcrumb.js"></script>
@@ -69,11 +73,11 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/patternfly-sass/assets/javascripts/patternfly.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
     <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="bower_components/keycloak/dist/keycloak.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -102,5 +106,5 @@
     <script src="/scripts/services/services.js"></script>
     <!-- endbuild -->
 
-</body>
+  </body>
 </html>

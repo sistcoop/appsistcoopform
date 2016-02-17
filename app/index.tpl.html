@@ -30,7 +30,10 @@
     <![endif]-->
 
     <!-- Application content here -->
-    <div ui-view></div>
+    <nav data-ng-include="'header.html'" class="navbar navbar-default navbar-pf"></nav>
+    <div class="container-fluid">
+      <section ui-view></section>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -57,5 +60,5 @@
     <!-- include: "type": "js", "ordering": "top-down", "files": ["scripts/**/*.js", "modules/**/*.js", "!scripts/config.js", "!scripts/init.js"] -->
     <!-- endbuild -->
 
-</body>
+  </body>
 </html>

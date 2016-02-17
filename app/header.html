@@ -31,12 +31,21 @@
             <span ng-bind="user.username"></span>
           </a>
         </li>
+        <li>
+          <a href="">
+            <strong>Roles: </strong>
+            <span ng-bind="user.roles"></span>
+          </a>
+        </li>
         <li class="" uib-dropdown>
           <a href="#" class="dropdown" uib-dropdown-toggle>
             <span class="pficon pficon-user"></span>
             <span class="username">{{user.fullName || user.metadata.name}}</span> <b class="caret"></b>
           </a>
           <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem">
+              <a href="" data-ng-click="accountManagement()">Account</a>
+            </li>
             <li role="menuitem">
               <a href="" data-ng-click="logout()">Log out</a>
             </li>

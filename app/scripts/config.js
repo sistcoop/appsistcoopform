@@ -17,8 +17,7 @@ var ApplicationConfiguration = (function () {
     'ui.utils.masks',
     'patternfly',
     'restangular',
-    'toastr',
-    'LocalStorageModule'
+    'toastr'
   ];
 
   // Add a new vertical module
