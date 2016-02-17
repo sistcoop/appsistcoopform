@@ -1,6 +1,6 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
-var CLIENT_ID = '215623520681-anqei2sdaplsmt7p9ikb1qcuch0j27r7.apps.googleusercontent.com';
+var CLIENT_ID = '1065409891182-dp0t41qvbb82u3aep8mp8p8u8cuird8r.apps.googleusercontent.com';
 
 var SCOPES = ['https://www.googleapis.com/auth/drive'];
 
@@ -56,7 +56,8 @@ function callScriptFunction() {
 
   // Create an execution request object.
   var request = {
-    'function': 'getFoldersUnderRoot'
+    //'function': 'getFoldersUnderRoot'
+    'function': 'getForms'
   };
 
   // Make the API request.
