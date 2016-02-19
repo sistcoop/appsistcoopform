@@ -16,10 +16,11 @@ angular.module('forms').controller('Forms.Form.CreateController',
             function (response) {
               $scope.working = false;
               toastr.success('Encuesta Guardada satisfactoriamente');
+              $state.go('^.edit', {form: response.id});
             },
             function error(err){
               $scope.working = false;
-              toastr.error('Error al guardar, intentelo nuevamente');
+              toastr.error(err.data.errorMessage);
             }
           );
         });

@@ -7,7 +7,8 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/forms/app', '/forms/app/menu01');
     $urlRouterProvider.when('/forms/app/menu01', '/forms/app/menu01/form');
     $urlRouterProvider.when('/forms/app/menu01/form', '/forms/app/menu01/form/search');
-    //$urlRouterProvider.when('/formularios/app/encuesta/encuestas', ' /formularios/app/encuesta/encuestas/buscar');
+
+    $urlRouterProvider.when('/forms/app/menu01/form/edit/:form', '/forms/app/menu01/form/edit/:form/summary');
 
     $stateProvider
       .state('forms', {
@@ -59,8 +60,7 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         url: '/search',
         templateUrl: 'modules/forms/views/menu01/form/form-search.html',
         controller: 'Forms.Form.SearchController',
-        resolve: {
-        },
+        resolve: {},
         ncyBreadcrumb: {
           label: 'Home'
         }
@@ -69,8 +69,7 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         url: '/create',
         templateUrl: 'modules/forms/views/menu01/form/form-create.html',
         controller: 'Forms.Form.CreateController',
-        resolve: {
-        },
+        resolve: {},
         ncyBreadcrumb: {
           label: 'Crear encuesta',
           parent: 'forms.app.menu01.form.search'
@@ -88,6 +87,26 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         ncyBreadcrumb: {
           label: 'Editar encuesta',
           parent: 'forms.app.menu01.form.search'
+        }
+      })
+      .state('forms.app.menu01.form.edit.summary', {
+        url: '/summary',
+        templateUrl: 'modules/forms/views/menu01/form/form-edit-summary.html',
+        controller: 'Forms.Form.Edit.SummaryController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          skip: true
+        }
+      })
+      .state('forms.app.menu01.form.edit.builder', {
+        url: '/builder',
+        templateUrl: 'modules/forms/views/menu01/form/form-edit-builder.html',
+        controller: 'Forms.Form.Edit.BuilderController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          label: 'Editor'
         }
       });
 
