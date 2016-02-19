@@ -4,7 +4,8 @@
 angular.module('forms').controller('Forms.Form.SearchController',
     function ($scope, $state, SCForm) {
 
-      var paginationOptions = {
+      SCForm.$getAll();
+      $scope.paginationOptions = {
         page: 1,
         pageSize: 10
       };
@@ -33,7 +34,7 @@ angular.module('forms').controller('Forms.Form.SearchController',
           filterText: $scope.filterOptions.filterText,
           filters: [],
           orders: [],
-          paging: paginationOptions
+          paging: $scope.paginationOptions
         };
         SCForm.$search(criteria).then(function(response){
           $scope.gridOptions.data = response.items;

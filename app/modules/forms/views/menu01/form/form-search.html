@@ -14,15 +14,15 @@
           </div>
         </div>
         <div class="pull-right">
-          <a class="btn btn-default" href="" ui-sref=".crear">Nuevo</a>
+          <a class="btn btn-default" href="" ui-sref="^.create">Nuevo</a>
         </div>
       </div>
     </th>
   </tr>
   <tr>
   <tr data-ng-show="gridOptions.data.length > 0">
-    <th class="w-15">Nombre</th>
     <th class="w-15">Titulo</th>
+    <th class="w-15">Descripcion</th>
     <th colspan="3">Acciones</th>
   </tr>
   </tr>
@@ -30,18 +30,14 @@
   <tfoot data-ng-show="gridOptions.data.length > 0">
   <tr>
     <td colspan="7">
-      <div class="table-nav">
-        <button data-ng-click="firstPage()" class="first" ng-disabled="query.first == 0">first-page</button>
-        <button data-ng-click="previousPage()" class="prev" ng-disabled="query.first == 0">previous-page</button>
-        <button data-ng-click="nextPage()" class="next" ng-disabled="users.length < query.max">next-page</button>
-      </div>
+      <uib-pagination boundary-links="true" total-items="gridOptions.totalItems" ng-model="paginationOptions.page" ng-change="search()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" style="margin: 5px; float: right;"></uib-pagination>
     </td>
   </tr>
   </tfoot>
   <tbody>
   <tr ng-repeat="item in gridOptions.data">
-    <td class="clip">{{item.name}}</td>
     <td class="clip">{{item.title}}</td>
+    <td class="clip">{{item.description}}</td>
     <td class="kc-action-cell">
       <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
     </td>

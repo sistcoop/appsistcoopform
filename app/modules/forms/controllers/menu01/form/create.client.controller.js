@@ -6,12 +6,13 @@ angular.module('forms').controller('Forms.Form.CreateController',
 
       $scope.working = false;
 
-      $scope.form = SCForm.$build();
+      $scope.view = {};
+      $scope.view.form = SCForm.$build();
 
       $scope.save = function(){
         SGDialog.confirm('Guardar', 'Estas seguro que quieres crear la encuesta?', function(){
           $scope.working = true;
-          $scope.form.$save().then(
+          $scope.view.form.$save().then(
             function (response) {
               $scope.working = false;
               toastr.success('Encuesta Guardada satisfactoriamente');

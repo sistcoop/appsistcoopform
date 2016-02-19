@@ -3,17 +3,6 @@
 <h1><strong>Crear encuesta</strong></h1>
 
 <form name="form" class="form-horizontal" novalidate>
-  <div class="form-group" data-ng-class="{ 'has-error' : form.name.$invalid && form.$submitted }">
-    <label class="col-sm-2 control-label"><span class="required">*</span> Nombre:</label>
-    <div class="col-sm-3">
-      <input name="name" type="text" data-ng-model="view.form.name" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" pf-focused="true" autofocus required/>
-      <div data-ng-messages="form.name.$error" data-ng-if="form.name.$submitted">
-        <div class="has-error" data-ng-message="required">Ingrese nombre.</div>
-        <div class="has-error" data-ng-message="minlength">Ingrese nombre.</div>
-        <div class="has-error" data-ng-message="maxlength">Maximo 200 caracteres.</div>
-      </div>
-    </div>
-  </div>
   <div class="form-group" data-ng-class="{ 'has-error' : form.title.$invalid && form.$submitted }">
     <label class="col-sm-2 control-label"><span class="required">*</span> Titulo:</label>
     <div class="col-sm-4">
