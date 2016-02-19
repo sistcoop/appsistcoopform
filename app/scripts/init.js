@@ -6,7 +6,7 @@ window.auth.keycloakUrl = 'http://localhost:8081/auth';
 window.auth.keycloakRealm = 'sistcoopform';
 window.auth.keycloakClientId = 'sistcoopform_app';
 
-window.auth.sistcoopformUrl = 'http://localhost:8082/sistcoopform';
+window.auth.sistcoopformUrl = 'http://localhost:8080/sistcoopform';
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
@@ -260,16 +260,8 @@ angular.module('mean').factory('SGUsuarioKeycloak', ['KeycloakRestangular', 'REA
 
 }]);
 
-/*angular.module('mean').config(function (sgCertambProvider) {
-  sgCertambProvider.restUrl = window.auth.certambUrl;
+angular.module('mean').config(function (formProvider) {
+  formProvider.restUrl = window.auth.sistcoopformUrl;
 });
-
-angular.module('mean').config(function (sgIso3166Provider) {
-  sgIso3166Provider.restUrl = window.auth.iso3166Url;
-});
-
-angular.module('mean').config(function (sgPersonaProvider) {
-  sgPersonaProvider.restUrl = window.auth.personaUrl;
-});*/
 
 

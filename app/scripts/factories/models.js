@@ -134,7 +134,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
     });
   }])
 
-  .factory('SGForm', ['FormRestangular', function (FormRestangular) {
+  .factory('SCForm', ['FormRestangular', function (FormRestangular) {
     var extendMethod = {
       /*$getCuentaAporte: function () {
        return CertambRestangular.one(this.$getBasePath(), this.id).customGET('cuentaAporte', {});

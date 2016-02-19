@@ -7,9 +7,9 @@
       <div class="form-inline">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" data-ng-model="query.search" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
+            <input type="text" data-ng-model="query.search" ui-keypress="{13:'search($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button"><i class="fa fa-search" data-ng-click="firstPage()"></i></button>
+              <button class="btn btn-default" data-ng-click="search()" type="button"><i class="fa fa-search"></i></button>
             </span>
           </div>
         </div>
@@ -20,14 +20,14 @@
     </th>
   </tr>
   <tr>
-  <tr data-ng-show="encuestas.length > 0">
+  <tr data-ng-show="gridOptions.data.length > 0">
     <th class="w-15">Nombre</th>
     <th class="w-15">Titulo</th>
     <th colspan="3">Acciones</th>
   </tr>
   </tr>
   </thead>
-  <tfoot data-ng-show="encuestas && (encuestas.length >= query.max || query.first > 0)">
+  <tfoot data-ng-show="gridOptions.data.length > 0">
   <tr>
     <td colspan="7">
       <div class="table-nav">
@@ -39,18 +39,18 @@
   </tr>
   </tfoot>
   <tbody>
-  <tr ng-repeat="item in encuestas">
+  <tr ng-repeat="item in gridOptions.data">
     <td class="clip">{{item.name}}</td>
     <td class="clip">{{item.title}}</td>
     <td class="kc-action-cell">
-      <button class="btn btn-default btn-block btn-sm" data-ng-click="editEncuesta(user)">Editar</button>
+      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
     </td>
     <td class="kc-action-cell">
-      <button class="btn btn-default btn-block btn-sm" data-ng-click="removeEncuesta(user)">Eliminar</button>
+      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remoe(item)">Eliminar</button>
     </td>
   </tr>
-  <tr data-ng-show="!encuestas || encuestas.length == 0">
-    <td class="text-muted" data-ng-show="encuestas.length == 0">No existen resultados que mostrar</td>
+  <tr data-ng-show="gridOptions.data.length == 0">
+    <td class="text-muted">No existen resultados que mostrar.</td>
   </tr>
   </tbody>
 </table>
