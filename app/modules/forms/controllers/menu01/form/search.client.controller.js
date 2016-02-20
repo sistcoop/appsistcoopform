@@ -2,9 +2,8 @@
 
 /* jshint -W098 */
 angular.module('forms').controller('Forms.Form.SearchController',
-    function ($scope, $state, SCForm) {
+    function ($scope, $state, toastr, SGDialog, SCForm) {
 
-      SCForm.$getAll();
       $scope.paginationOptions = {
         page: 1,
         pageSize: 10
@@ -26,6 +25,19 @@ angular.module('forms').controller('Forms.Form.SearchController',
       $scope.gridActions = {
         edit: function (row) {
           $state.go('^.edit', {form: row.id});
+        },
+        remove: function(row) {
+          SGDialog.confirmDelete(row.title, 'Encuesta', function() {
+            SCForm.$new(row.id).$remove().then(
+              function(response){
+                toastr.success('Encuesta eliminada satisfactoriamente');
+                $scope.search();
+              },
+              function error(err){
+                toastr.error(err.data.errorMessage);
+              }
+            );
+          });
         }
       };
 

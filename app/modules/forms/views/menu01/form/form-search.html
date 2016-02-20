@@ -7,7 +7,7 @@
       <div class="form-inline">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" data-ng-model="query.search" ui-keypress="{13:'search($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
+            <input type="text" data-ng-model="filterOptions.filterText" ui-keypress="{13:'search($event)'}" class="form-control" placeholder="Buscar..." pf-focused="true" autofocus>
             <span class="input-group-btn">
               <button class="btn btn-default" data-ng-click="search()" type="button"><i class="fa fa-search"></i></button>
             </span>
@@ -42,7 +42,7 @@
       <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.edit(item)">Editar</button>
     </td>
     <td class="kc-action-cell">
-      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remoe(item)">Eliminar</button>
+      <button class="btn btn-default btn-block btn-sm" data-ng-click="gridActions.remove(item)">Eliminar</button>
     </td>
   </tr>
   <tr data-ng-show="gridOptions.data.length == 0">
