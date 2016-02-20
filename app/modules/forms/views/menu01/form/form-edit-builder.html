@@ -1,83 +1,84 @@
-<div ncy-breadcrumb></div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <div class="navbar-brand">
+        <i class="fa fa-building"></i>
+      </div>
 
-<h1>
-    <strong>Editar tipo documento</strong>
-    <span data-ng-bind="view.tipoDocumento.abreviatura"></span>
-
-    <div class="pull-right" data-ng-if="access.eliminarDocumentos">
-        <div class="btn-group">
-            <form name="form" data-ng-submit="remove()" novalidate>
-                <button type="button" class="btn btn-default" data-ng-if="!view.tipoDocumento.estado" data-ng-click="enable()">
-                    <i class="fa fa-arrow-circle-o-down"></i>
-                    <span>Activar</span>
-                </button>
-                <button type="button" class="btn btn-default" data-ng-if="view.tipoDocumento.estado" data-ng-click="disable()">
-                    <i class="fa fa-arrow-circle-o-down"></i>
-                    <span>Desactivar</span>
-                </button>
-                <button sg-delete>
-                    <i class="pficon pficon-delete"></i>
-                    <span>Eliminar</span>
-                </button>
-            </form>
-        </div>
-    </div>
-</h1>
-
-
-<form name="form" sg-read-only="!access.administrarDocumentos" class="form-horizontal" novalidate>
-
-    <div class="form-group" data-ng-class="{ 'has-error' : form.tipoPersona.$invalid && form.$submitted }">
-        <label class="col-sm-2 control-label"><span class="required">*</span> Tipo persona:</label>
-        <div class="col-sm-3">
-            <ui-select name="tipoPersona" data-ng-model="combo.selected.tipoPersona" data-ng-disabled="!access.administrarDocumentos" pf-focused="true" autofocus required>
-                <ui-select-match placeholder="Seleccione">{{$select.selected}}</ui-select-match>
-                <ui-select-choices repeat="item in combo.tipoPersona | filter: $select.search">
-                    <div data-ng-bind-html="item | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-            <div data-ng-messages="form.tipoPersona.$error" data-ng-if="form.$submitted">
-                <div class="has-error" data-ng-message="required">Ingrese tipo persona.</div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group" data-ng-class="{ 'has-error' : form.denominacion.$invalid && form.$submitted }">
-        <label class="col-sm-2 control-label"><span class="required">*</span> Denominacion:</label>
-        <div class="col-sm-3">
-            <input name="denominacion" type="text" data-ng-model="view.tipoDocumento.denominacion" data-ng-minlength="1" data-ng-maxlength="60" class="form-control" required/>
-            <div data-ng-messages="form.denominacion.$error" data-ng-if="form.$submitted">
-                <div class="has-error" data-ng-message="required">Ingrese denominacion.</div>
-                <div class="has-error" data-ng-message="minlength">Ingrese denominacion.</div>
-                <div class="has-error" data-ng-message="maxlength">Denominacion muy extensa, maximo 60 caracteres.</div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group" data-ng-class="{ 'has-error' : form.cantidadCaracteres.$invalid && form.$submitted}">
-        <label class="col-sm-2 control-label"><span class="required">*</span> Cantidad caracteres:</label>
-        <div class="col-sm-3">
-            <input name="cantidadCaracteres" type="text" data-ng-model="view.tipoDocumento.cantidadCaracteres" ui-number-mask="0" min="1" max="20" ng-init="1" class="form-control" required />
-            <div data-ng-messages="form.cantidadCaracteres.$error" data-ng-if="form.$submitted">
-                <div class="has-error" data-ng-message="required">Ingrese cantidad caracteres.</div>
-                <div class="has-error" data-ng-message="min">Minimo 1.</div>
-                <div class="has-error" data-ng-message="max">Maximo 20.</div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Estado:</label>
-        <div class="col-sm-3">
-            <span data-ng-bind="view.tipoDocumento.estado | si_no: 'ACTIVO' | uppercase"></span>
-        </div>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
     </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button sg-save ng-disabled="working">
-                <span ng-show="working">Guardando...</span>
-                <span ng-hide="working">Guardar</span>
-            </button>
-            <button sg-cancel ng-disabled="working" ui-sref="^.buscar">Cancelar</button>
-        </div>
-    </div>
-</form>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
 
+        <li>
+          <a href="" data-ng-click="setOperation('section')">Seccion <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="dropdown" uib-dropdown>
+          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
+            Texto <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="">Respuesta corta</a></li>
+            <li role="menuitem"><a href="">Respuesta larga</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" uib-dropdown>
+          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
+            Numero <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="">Entero</a></li>
+            <li role="menuitem"><a href="">Decimal</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" uib-dropdown>
+          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
+            Fecha <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="">Solo fecha</a></li>
+            <li role="menuitem"><a href="">Solo hora</a></li>
+            <li role="menuitem"><a href="">Fecha y hora</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" uib-dropdown>
+          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
+            Selecction <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="">Simple</a></li>
+            <li role="menuitem"><a href="">Multiple</a></li>
+          </ul>
+        </li>
+
+        <li><a href="">Tabla <span class="sr-only">(current)</span></a></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div data-ng-if="operation === 'section'" >
+  <sc-section form-model="view.form" on-close="resetOperation()" on-transaction="onSectionChanged()"></sc-section>
+</div>
+<div data-ng-if="operation === 'textQuestion'">
+  <sc-text-question close="resetOperation()"></sc-text-question>
+</div>
+
+<div data-ng-if="sections.length">
+  <h1>Pre visualizacion</h1>
+  <sc-section data-ng-repeat="item in sections" form-model="view.form" section-model="item" on-transaction="onSectionChanged()"></sc-section>
+</div>

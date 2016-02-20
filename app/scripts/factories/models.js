@@ -141,5 +141,12 @@ angular.module(ApplicationConfiguration.applicationModuleName)
        }*/
     };
 
-    return new RestObject('forms', FormRestangular, extendMethod);
+    var SCForm =  new RestObject('forms', FormRestangular, extendMethod);
+
+    SCForm.SCSection = function () {
+      var extendMethod = {};
+      return new RestObject(this.$concatSubResourcePath('sections'), FormRestangular, extendMethod);
+    };
+
+    return SCForm;
   }]);
