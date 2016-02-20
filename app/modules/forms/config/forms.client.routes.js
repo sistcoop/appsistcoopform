@@ -99,6 +99,16 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           skip: true
         }
       })
+      .state('forms.app.menu01.form.edit.principaldata', {
+        url: '/principaldata',
+        templateUrl: 'modules/forms/views/menu01/form/form-edit-principaldata.html',
+        controller: 'Forms.Form.Edit.PrincipalDataController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          label: 'Datos principales'
+        }
+      })
       .state('forms.app.menu01.form.edit.builder', {
         url: '/builder',
         templateUrl: 'modules/forms/views/menu01/form/form-edit-builder.html',

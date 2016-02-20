@@ -15,7 +15,7 @@ angular.module('forms').controller('Forms.Form.CreateController',
           $scope.view.form.$save().then(
             function (response) {
               $scope.working = false;
-              toastr.success('Encuesta Guardada satisfactoriamente');
+              toastr.success('Encuesta creada satisfactoriamente');
               $state.go('^.edit', {form: response.id});
             },
             function error(err){
