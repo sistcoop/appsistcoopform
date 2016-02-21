@@ -65,13 +65,16 @@
 </nav>
 
 <div data-ng-if="operation === 'section'" >
-  <sc-section form-model="view.form" on-close="resetOperation()" on-transaction="onSectionChanged()"></sc-section>
+  <sc-section sc-form-model="view.form" on-saved="sectionCreated" on-removed="sectionRemoved($index)" on-closed="closeOperation()"></sc-section>
 </div>
 <div data-ng-if="operation === 'textQuestion'">
-  <sc-text-question sc-form="view.form"></sc-text-question>
+  <sc-text-question sc-form-model="view.form" on-saved="loadSections()" on-removed="loadSections()" on-closed="closeOperation()"></sc-text-question>
 </div>
 
 <div data-ng-if="sections.length">
   <h1>Pre visualizacion</h1>
-  <sc-section data-ng-repeat="item in sections" form-model="view.form" section-model="item" on-transaction="onSectionChanged()"></sc-section>
+
+  <sc-section data-ng-repeat="item in sections" sc-form-model="view.form" sc-section-model="item" on-removed="sectionRemoved($index)">
+  </sc-section>
+
 </div>

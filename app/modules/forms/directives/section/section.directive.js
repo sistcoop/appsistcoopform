@@ -5,38 +5,52 @@ angular.module('forms').directive('scSection', function () {
   return {
     restrict: 'AE',
     scope: {
-      formModel: '=',
-      sectionModel: '=',
-      onClose: '&',
-      onTransaction: '&'
+      scFormModel: '=',
+      scSectionModel: '=',
+      onSaved: '=',
+      onRemoved: '&',
+      onClosed: '&'
     },
     replace: true,
     templateUrl: 'modules/forms/directives/section/section.html',
-    controller: ['$scope', '$filter','toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
+    controller: ['$scope', '$filter', 'toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
       $scope.working = false;
 
-      $scope.view = {};
-      if($scope.sectionModel) {
-        $scope.view.form = $scope.sectionModel;
-      } else {
-        $scope.view.form = SCForm.$new($scope.formModel.id).SCSection().$build();
-      }
+      // UI objects
+      $scope.view = {
+        section: $scope.scSectionModel,
+        isEditing: false
+      };
 
-      if($scope.view.form.id) {
-        $scope.sectionModel.SCQuestion().$getAll(function(response){
-          $scope.questions = $filter('orderBy')(response, 'number');
-        });
-      }
+      // Load questions if section is defined
+      var loadQuestions = function () {
+        if ($scope.scSectionModel) {
+          $scope.scSectionModel.SCQuestion().$getAll().then(function (response) {
+            $scope.questions = $filter('orderBy')(response, 'number');
+          });
+        }
+      };
+      loadQuestions();
 
+
+      // Saved method. Valid for POST and PUT
       $scope.save = function () {
         $scope.working = true;
-        $scope.view.form.$save().then(
-          function () {
+
+        var build = SCForm.$new($scope.scFormModel.id).SCSection().$build();
+        $scope.view.section = angular.extend(build, $scope.view.section);
+
+        $scope.view.section.$save().then(
+          function (response) {
             $scope.working = false;
+            $scope.view.isEditing = false;
             toastr.success('Seccion guardada');
-            $scope.onTransaction();
-            $scope.editing = false;
+
+            $scope.close();
+            if ($scope.onSaved) {
+              $scope.onSaved(response);
+            }
           },
           function error(err) {
             $scope.working = false;
@@ -45,18 +59,19 @@ angular.module('forms').directive('scSection', function () {
         );
       };
 
-      $scope.edit = function() {
-        $scope.editing = true;
-      };
-      $scope.remove = function() {
-        SGDialog.confirmDelete($scope.view.form.title, 'seccion', function() {
+      // Remove method
+      $scope.remove = function () {
+        SGDialog.confirmDelete($scope.view.section.title, 'seccion', function () {
           $scope.working = true;
-          $scope.view.form.$remove().then(
+          $scope.view.section.$remove().then(
             function () {
               $scope.working = false;
+              $scope.view.isEditing = false;
               toastr.success('Seccion eliminada');
-              $scope.onTransaction();
-              $scope.editing = false;
+
+              if ($scope.onRemoved) {
+                $scope.onRemoved();
+              }
             },
             function error(err) {
               $scope.working = false;
@@ -64,6 +79,24 @@ angular.module('forms').directive('scSection', function () {
             }
           );
         });
+      };
+
+      // On Cancel button
+      $scope.cancel = function () {
+        $scope.view.isEditing = false;
+      };
+
+      // On edit button
+      $scope.edit = function () {
+        $scope.view.isEditing = true;
+      };
+
+      // Close button
+      $scope.close = function () {
+        $scope.view.isEditing = false;
+        if ($scope.onClosed) {
+          $scope.onClosed();
+        }
       };
 
     }],

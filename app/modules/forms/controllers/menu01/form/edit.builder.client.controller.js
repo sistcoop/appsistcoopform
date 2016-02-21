@@ -2,30 +2,48 @@
 
 /* jshint -W098 */
 angular.module('forms').controller('Forms.Form.Edit.BuilderController',
-    function ($scope, $state, $filter, toastr, form, SGDialog, SCForm) {
+  function ($scope, $state, $filter, toastr, form) {
 
-      $scope.view = {
-        form: form
-      };
-      $scope.sections = [];
+    $scope.view = {
+      form: form
+    };
+    $scope.sections = [];
 
-      $scope.loadSections = function () {
-        $scope.view.form.SCSection().$getAll().then(function(response){
-          $scope.sections = $filter('orderBy')(response, 'number');
-        });
-      };
-      $scope.loadSections();
+    // Sections utils
+    var addSection = function (section) {
+      if(angular.isArray(section)) {
+        $scope.sections = $filter('orderBy')($scope.sections.concat(section), 'number');
+      } else {
+        $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
+      }
+    };
+    var removeSection = function (index) {
+      $scope.sections.splice(index, 1);
+    };
 
-      $scope.setOperation = function(op){
-        $scope.operation = op;
-      };
-      $scope.resetOperation = function () {
-        $scope.operation = undefined;
-      };
+    // Load all sections of the form
+    $scope.loadSections = function () {
+      $scope.view.form.SCSection().$getAll().then(function (response) {
+        addSection(response);
+      });
+    };
+    $scope.loadSections();
 
-      $scope.onSectionChanged = function(){
-        $scope.resetOperation();
-        $scope.loadSections();
-      };
+    // Is action on menu clicked
+    $scope.setOperation = function (op) {
+      $scope.operation = op;
+    };
+    $scope.closeOperation = function () {
+      $scope.operation = undefined;
+    };
 
-    });
+    // Active on new Section created
+    $scope.sectionCreated = function (section) {
+      $scope.closeOperation();
+      addSection(section);
+    };
+    $scope.sectionRemoved = function (index) {
+      removeSection(index);
+    };
+
+  });
