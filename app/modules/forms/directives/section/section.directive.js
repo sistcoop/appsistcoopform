@@ -22,6 +22,7 @@ angular.module('forms').directive('scSection', function () {
         section: $scope.scSectionModel,
         isEditing: false
       };
+      $scope.questions = [];
 
       // Load questions if section is defined
       var loadQuestions = function () {
@@ -79,6 +80,26 @@ angular.module('forms').directive('scSection', function () {
             }
           );
         });
+      };
+
+      // Sections utils
+      var addQuestion = function (question) {
+        if(angular.isArray(question)) {
+          $scope.questions = $filter('orderBy')($scope.questions.concat(question), 'number');
+        } else {
+          $scope.questions = $filter('orderBy')($scope.questions.concat([question]), 'number');
+        }
+      };
+      var removeQuestion = function (index) {
+        $scope.questions.splice(index, 1);
+      };
+
+      // On create and remove questions
+      $scope.questionCreated = function (question) {
+        addQuestion(question);
+      };
+      $scope.questionRemoved = function (index) {
+        removeQuestion(index);
       };
 
       // On Cancel button

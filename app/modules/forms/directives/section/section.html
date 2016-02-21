@@ -2,14 +2,14 @@
   <div class="col-sm-12">
     <fieldset class="border-top">
       <legend>
-        <h1>
+        <h3>
           {{view.section.number}}.&nbsp;{{view.section.title}}<small>.&nbsp;{{view.section.description}}</small>
           <div class="btn-group pull-right">
-            <button data-ng-if="view.section.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
-            <button data-ng-if="view.section.id" data-ng-click="remove()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
-            <button data-ng-if="!view.section.id" data-ng-click="onClose()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
+            <button data-ng-if="view.section.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button data-ng-if="view.section.id" data-ng-click="remove()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+            <button data-ng-if="!view.section.id" data-ng-click="onClose()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
           </div>
-        </h1>
+        </h3>
       </legend>
 
       <form data-ng-if="view.isEditing || !view.section.id" name="form" class="form-horizontal" novalidate>
@@ -55,7 +55,7 @@
       </form>
 
       <div data-ng-repeat="item in questions">
-        <sc-text-question data-ng-if="item.question === 'TEXT'" sc-form-model="scFormModel" sc-section-model="scSectionModel" sc-question-model="item"></sc-text-question>
+        <sc-text-question data-ng-if="item.question === 'TEXT'" sc-form-model="scFormModel" sc-section-model="scSectionModel" sc-question-model="item" on-saved="questionCreated()" on-removed="questionRemoved($index)"></sc-text-question>
       </div>
 
     </fieldset>

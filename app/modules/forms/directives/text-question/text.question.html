@@ -2,14 +2,14 @@
   <div class="col-sm-offset-1 col-sm-11">
     <fieldset class="border-top">
       <legend>
-        <h2>
-          {{combo.selected.section.number}}.{{view.question.number}}.&nbsp;{{view.question.title}}<small>.&nbsp;{{view.question.description}}</small>
+        <h4>
+          {{combo.selected.section.number}}.{{view.question.number}}.&nbsp;{{view.question.title}}<span data-ng-if="view.question.required" class="required">&nbsp;*</span><small>.&nbsp;{{view.question.description}}</small>
           <div class="btn-group pull-right">
-            <button data-ng-if="view.question.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
-            <button data-ng-if="view.question.id" data-ng-click="remove()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
-            <button data-ng-if="!view.question.id" data-ng-click="close()" type="button" class="btn btn-default btn-lg" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
+            <button data-ng-if="view.question.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button data-ng-if="view.question.id" data-ng-click="remove()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+            <button data-ng-if="!view.question.id" data-ng-click="close()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
           </div>
-        </h2>
+        </h4>
       </legend>
 
       <div data-ng-if="!view.isEditing" class="form-horizontal">

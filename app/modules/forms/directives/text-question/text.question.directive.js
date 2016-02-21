@@ -26,13 +26,26 @@ angular.module('forms').directive('scTextQuestion', function () {
 
       // Combo definition
       $scope.combo = {
-        type: [{name: 'Texto corto', value: 'SHORT'}, {name: 'Texto largo', value: 'LARGE'}],
+        type: [{name: 'TEXTO CORTO', value: 'SHORT'}, {name: 'TEXTO LARGO', value: 'LARGE'}],
         section: [$scope.scSectionModel]
       };
       $scope.combo.selected = {
-        type: {name: 'Texto corto', value: 'SHORT'},
+        type: undefined,
         section: $scope.scSectionModel
       };
+
+      // Load combo if questions is defined
+      var loadCombo = function(){
+        if($scope.scQuestionModel) {
+          for(var index in $scope.combo.type) {
+            if($scope.combo.type[index].value === $scope.scQuestionModel.type) {
+              $scope.combo.selected.type = $scope.combo.type[index];
+              break;
+            }
+          }
+        }
+      };
+      loadCombo();
 
       // Load sections if it is not defined
       var loadSections = function () {

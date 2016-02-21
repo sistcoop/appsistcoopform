@@ -24,6 +24,7 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
     // Load all sections of the form
     $scope.loadSections = function () {
       $scope.view.form.SCSection().$getAll().then(function (response) {
+        $scope.sections = [];
         addSection(response);
       });
     };
