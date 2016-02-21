@@ -12,7 +12,7 @@ angular.module('forms').directive('scSection', function () {
     },
     replace: true,
     templateUrl: 'modules/forms/directives/section/section.html',
-    controller: ['$scope', 'toastr', 'SGDialog', 'SCForm', function ($scope, toastr, SGDialog, SCForm) {
+    controller: ['$scope', '$filter','toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
       $scope.working = false;
 
@@ -21,6 +21,12 @@ angular.module('forms').directive('scSection', function () {
         $scope.view.form = $scope.sectionModel;
       } else {
         $scope.view.form = SCForm.$new($scope.formModel.id).SCSection().$build();
+      }
+
+      if($scope.view.form.id) {
+        $scope.sectionModel.SCQuestion().$getAll(function(response){
+          $scope.questions = $filter('orderBy')(response, 'number');
+        });
       }
 
       $scope.save = function () {

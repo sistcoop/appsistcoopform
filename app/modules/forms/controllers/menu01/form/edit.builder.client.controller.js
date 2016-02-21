@@ -11,7 +11,7 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
 
       $scope.loadSections = function () {
         $scope.view.form.SCSection().$getAll().then(function(response){
-          $scope.sections = $filter('orderBy')(response, 'number');;
+          $scope.sections = $filter('orderBy')(response, 'number');
         });
       };
       $scope.loadSections();
