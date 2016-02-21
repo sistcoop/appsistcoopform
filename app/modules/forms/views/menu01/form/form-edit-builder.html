@@ -22,15 +22,8 @@
         <li>
           <a href="" data-ng-click="setOperation('section')">Seccion <span class="sr-only">(current)</span></a>
         </li>
-
-        <li class="dropdown" uib-dropdown>
-          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
-            Texto <span class="caret"></span>
-          </a>
-          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="">Respuesta corta</a></li>
-            <li role="menuitem"><a href="">Respuesta larga</a></li>
-          </ul>
+        <li>
+          <a href="" data-ng-click="setOperation('textQuestion')">Texto <span class="sr-only">(current)</span></a>
         </li>
 
         <li class="dropdown" uib-dropdown>
@@ -75,7 +68,7 @@
   <sc-section form-model="view.form" on-close="resetOperation()" on-transaction="onSectionChanged()"></sc-section>
 </div>
 <div data-ng-if="operation === 'textQuestion'">
-  <sc-text-question close="resetOperation()"></sc-text-question>
+  <sc-text-question sc-form="view.form"></sc-text-question>
 </div>
 
 <div data-ng-if="sections.length">

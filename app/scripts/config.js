@@ -15,6 +15,7 @@ var ApplicationConfiguration = (function () {
     'ui.bootstrap',
     'ui.utils',
     'ui.utils.masks',
+    'ui.select',
     'patternfly',
     'restangular',
     'toastr'

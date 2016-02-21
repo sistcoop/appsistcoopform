@@ -3,85 +3,100 @@
 /* jshint -W098 */
 angular.module('forms').directive('scTextQuestion', function () {
   return {
-    restrict: 'AE',
+    restrict: 'E',
     scope: {
       scForm: '=',
       scSection: '=',
-      scQuestion: '='
+      scQuestion: '=',
+      onSaved: '&',
+      onRemoved: '&',
+      onClose: '&'
     },
     replace: true,
     templateUrl: 'modules/forms/directives/text-question/text.question.html',
-    controller: ['$scope', 'toastr', 'SCForm', function ($scope, toastr, SCForm) {
-
-      var loadSections = function () {
-        SCForm.$new($scope.scForm.id).SCSection().$getAll().then(function (response) {
-          $scope.combo.section = response;
-        });
-      };
-
-      var configCombo = function () {
-        if ($scope.scSection) {
-          $scope.combo.section = [$scope.scSection];
-          $scope.combo.selected.section = [$scope.scSection];
-        } else {
-          loadSections();
-        }
-      };
-
-      $scope.combo = {
-        section: undefined
-      };
-      $scope.combo.selected = {
-        section: undefined
-      };
-
-      configCombo();
-
+    controller: ['$scope','$filter','toastr','SGDialog','SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
       $scope.working = false;
 
+      // UI objects
+      $scope.view = {
+        question: $scope.scQuestion,
+        isEditing: false
+      };
+
+      // Combos definition
+      $scope.combo = {
+        type: [{name: 'Texto corto', value: 'SHORT'}, {name: 'Texto largo', value: 'LARGE'}],
+        section: [$scope.scSection]
+      };
+      $scope.combo.selected = {
+        type: {name: 'Texto corto', value: 'SHORT'},
+        section: [$scope.scSection]
+      };
+
+      // Load sections if it is not defined
+      var loadSections = function () {
+        if (!$scope.scSection) {
+          $scope.scForm.SCSection().$getAll().then(function (response) {
+            $scope.combo.section = $filter('orderBy')(response, 'number');
+          });
+        }
+      };
+      loadSections();
+
+      // Saved method. Valid for POST and PUT
       $scope.save = function () {
         $scope.working = true;
 
-        var question;
-        if(!$scope.scQuestion.id) {
-          question = SCForm.$new($scope.scForm.id).SCSection().$new($scope.combo.selected.section.id).SCQuestion().$build();
-          question = angular.copy(question, $scope.scQuestion);
-        } else {
-          question = $scope.scQuestion;
-        }
-        question.$save().then(
+        $scope.view.question.question = 'TEXT';
+        $scope.view.question.type = $scope.combo.selected.type.value;
+
+        var build = SCForm.$new($scope.scForm.id).SCSection().$new($scope.combo.selected.section.id).SCQuestion().$build();
+        $scope.view.question = angular.extend($scope.view.question, build);
+
+        $scope.view.question.$save().then(
           function (response) {
-            toastr.success('Pregunta creada satisfactoriamente');
             $scope.working = false;
+            $scope.view.isEditing = false;
+            toastr.success('Pregunta guardada');
+
+            $scope.onSaved(response);
           },
           function error(err) {
-            toastr.error(err.data.errorMessage);
             $scope.working = false;
+            toastr.error(err.data.errorMessage);
           }
         );
       };
 
-      $scope.remove = function(){
-        $scope.working = true;
+      // Remove method
+      $scope.remove = function() {
+        SGDialog.confirmDelete($scope.view.question.title, 'pregunta', function() {
+          $scope.working = true;
+          $scope.view.question.$remove().then(
+            function (response) {
+              $scope.working = false;
+              $scope.view.isEditing = false;
+              toastr.success('Pregunta eliminada');
 
-        var question;
-        if(!$scope.scQuestion.id) {
-          question = SCForm.$new($scope.scForm.id).SCSection().$new($scope.combo.selected.section.id).SCQuestion().$build();
-          question = angular.copy(question, $scope.scQuestion);
-        } else {
-          question = $scope.scQuestion;
-        }
-        question.$remove().then(
-          function (response) {
-            toastr.success('Pregunta eliminada satisfactoriamente');
-            $scope.working = false;
-          },
-          function error(err) {
-            toastr.error(err.data.errorMessage);
-            $scope.working = false;
-          }
-        );
+              $scope.onRemoved();
+            },
+            function error(err) {
+              $scope.working = false;
+              toastr.error(err.data.errorMessage);
+            }
+          );
+        });
+      };
+
+      // On edit button
+      $scope.edit = function() {
+        $scope.view.isEditing = true;
+      };
+
+      // Close button
+      $scope.close = function() {
+        $scope.onClose();
       };
 
     }],
