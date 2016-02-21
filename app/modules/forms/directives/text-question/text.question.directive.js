@@ -92,7 +92,7 @@ angular.module('forms').directive('scTextQuestion', function () {
         $scope.working = true;
 
         $scope.view.question.question = $scope.questionType.toUpperCase();
-        $scope.view.question.type = $scope.combo.selected.type.value;
+        $scope.view.question.type = $scope.combo.selected.type.value.toUpperCase();
 
         var build = SCForm.$new($scope.scFormModel.id).SCSection().$new($scope.combo.selected.section.id).SCQuestion().$build();
         $scope.view.question = angular.extend(build, $scope.view.question);
