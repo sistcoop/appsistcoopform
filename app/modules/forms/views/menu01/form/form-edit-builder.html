@@ -20,61 +20,40 @@
       <ul class="nav navbar-nav">
 
         <li>
-          <a href="" data-ng-click="setOperation('section')">Seccion <span class="sr-only">(current)</span></a>
+          <a href="" data-ng-click="setOperation('section')">Seccion</a>
         </li>
         <li>
-          <a href="" data-ng-click="setOperation('textQuestion')">Texto <span class="sr-only">(current)</span></a>
+          <a href="" data-ng-click="setOperation('question', 'text')">Texto</a>
         </li>
-
-        <li class="dropdown" uib-dropdown>
-          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
-            Numero <span class="caret"></span>
-          </a>
-          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="">Entero</a></li>
-            <li role="menuitem"><a href="">Decimal</a></li>
-          </ul>
+        <li>
+          <a href="" data-ng-click="setOperation('question', 'number')">Numero</a>
         </li>
-
-        <li class="dropdown" uib-dropdown>
-          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
-            Fecha <span class="caret"></span>
-          </a>
-          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="">Solo fecha</a></li>
-            <li role="menuitem"><a href="">Solo hora</a></li>
-            <li role="menuitem"><a href="">Fecha y hora</a></li>
-          </ul>
+        <li>
+          <a href="" data-ng-click="setOperation('question', 'datetime')">Fecha</a>
         </li>
-
-        <li class="dropdown" uib-dropdown>
-          <a href="" class="dropdown-toggle" uib-dropdown-toggle>
-            Selecction <span class="caret"></span>
-          </a>
-          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-            <li role="menuitem"><a href="">Simple</a></li>
-            <li role="menuitem"><a href="">Multiple</a></li>
-          </ul>
+        <li>
+          <a href="" data-ng-click="setOperation('question', 'select')">Seleccion</a>
         </li>
-
-        <li><a href="">Tabla <span class="sr-only">(current)</span></a></li>
+        <li>
+          <a href="" data-ng-click="setOperation('question', 'grid')">Tabla</a>
+        </li>
 
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<div data-ng-if="operation === 'section'" >
+<div data-ng-if="typeObject === 'section'" >
   <sc-section sc-form-model="view.form" on-saved="sectionCreated" on-removed="sectionRemoved($index)" on-closed="closeOperation()"></sc-section>
 </div>
-<div data-ng-if="operation === 'textQuestion'">
-  <sc-text-question sc-form-model="view.form" on-saved="loadSections()" on-removed="loadSections()" on-closed="closeOperation()"></sc-text-question>
+<div data-ng-if="typeObject === 'question'">
+  <sc-text-question question-type="subType" sc-form-model="view.form" on-saved="loadSections()" on-removed="loadSections()" on-closed="closeOperation()"></sc-text-question>
 </div>
 
 <div data-ng-if="sections.length">
   <h1>Pre visualizacion</h1>
 
-  <sc-section data-ng-repeat="item in sections" sc-form-model="view.form" sc-section-model="item" on-removed="sectionRemoved($index)">
+  <sc-section data-ng-repeat="item in sections" subType="item.question" sc-form-model="view.form" sc-section-model="item" on-removed="sectionRemoved($index)">
   </sc-section>
 
 </div>

@@ -31,11 +31,12 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
     $scope.loadSections();
 
     // Is action on menu clicked
-    $scope.setOperation = function (op) {
-      $scope.operation = op;
+    $scope.setOperation = function (typeObject, subType) {
+      $scope.typeObject = typeObject;
+      $scope.subType = subType;
     };
     $scope.closeOperation = function () {
-      $scope.operation = undefined;
+      $scope.setOperation(undefined, undefined);
     };
 
     // Active on new Section created

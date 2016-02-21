@@ -96,7 +96,8 @@ angular.module('forms').directive('scSection', function () {
 
       // On create and remove questions
       $scope.questionCreated = function (question) {
-        addQuestion(question);
+        //addQuestion(question);
+        loadQuestions();
       };
       $scope.questionRemoved = function (index) {
         removeQuestion(index);

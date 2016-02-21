@@ -7,7 +7,7 @@
           <div class="btn-group pull-right">
             <button data-ng-if="view.section.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
             <button data-ng-if="view.section.id" data-ng-click="remove()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
-            <button data-ng-if="!view.section.id" data-ng-click="onClose()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
+            <button data-ng-if="!view.section.id" data-ng-click="close()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
           </div>
         </h3>
       </legend>
@@ -55,7 +55,7 @@
       </form>
 
       <div data-ng-repeat="item in questions">
-        <sc-text-question data-ng-if="item.question === 'TEXT'" sc-form-model="scFormModel" sc-section-model="scSectionModel" sc-question-model="item" on-saved="questionCreated()" on-removed="questionRemoved($index)"></sc-text-question>
+        <sc-text-question sc-form-model="scFormModel" sc-section-model="scSectionModel" sc-question-model="item" on-saved="questionCreated()" on-removed="questionRemoved($index)"></sc-text-question>
       </div>
 
     </fieldset>

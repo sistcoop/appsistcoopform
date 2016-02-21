@@ -5,6 +5,7 @@ angular.module('forms').directive('scTextQuestion', function () {
   return {
     restrict: 'E',
     scope: {
+      questionType: '=?',//text, number, datetime, select, grid
       scFormModel: '=',
       scSectionModel: '=',
       scQuestionModel: '=',
@@ -21,12 +22,26 @@ angular.module('forms').directive('scTextQuestion', function () {
       // UI objects
       $scope.view = {
         question: $scope.scQuestionModel,
-        isEditing: false
+        isEditing: $scope.scQuestionModel ? false : true
       };
+
+      // Load question type if it is defined
+      var loadQuestionType = function(){
+        if($scope.scQuestionModel) {
+          $scope.questionType = $scope.scQuestionModel.question.toLowerCase();
+        }
+      };
+      loadQuestionType();
 
       // Combo definition
       $scope.combo = {
-        type: [{name: 'TEXTO CORTO', value: 'SHORT'}, {name: 'TEXTO LARGO', value: 'LARGE'}],
+        type: {
+          text: [{name: 'TEXTO CORTO', value: 'SHORT'}, {name: 'TEXTO LARGO', value: 'LARGE'}],
+          number: [{name: 'ENTERO', value: 'INTEGER'}, {name: 'DECIMAL', value: 'DECIMAL'}],
+          datetime: [{name: 'FECHA', value: 'DATE'}, {name: 'HORA', value: 'TIME'}, {name: 'FECHA Y HORA', value: 'DATETIME'}],
+          select: [{name: 'MULTIPLE', value: 'MULTIPLE'}, {name: 'VERIFICACION', value: 'VERIFICATION'}, {name: 'DESPLEGABLE', value: 'DROPDOWN'}],
+          grid: []
+        },
         section: [$scope.scSectionModel]
       };
       $scope.combo.selected = {
@@ -35,14 +50,29 @@ angular.module('forms').directive('scTextQuestion', function () {
       };
 
       // Load combo if questions is defined
-      var loadCombo = function(){
-        if($scope.scQuestionModel) {
-          for(var index in $scope.combo.type) {
-            if($scope.combo.type[index].value === $scope.scQuestionModel.type) {
-              $scope.combo.selected.type = $scope.combo.type[index];
+      var loadCombo = function () {
+        if ($scope.scQuestionModel) {
+
+          var validTypes;
+          if($scope.questionType === 'text') {
+            validTypes = $scope.combo.type.text;
+          } else if($scope.questionType === 'number') {
+            validTypes = $scope.combo.type.number;
+          } else if($scope.questionType === 'datetime') {
+            validTypes = $scope.combo.type.datetime;
+          } else if($scope.questionType === 'select') {
+            validTypes = $scope.combo.type.select;
+          } else if($scope.questionType === 'grid') {
+            validTypes = $scope.combo.type.grid;
+          }
+
+          for (var index in validTypes) {
+            if (validTypes[index].value === $scope.scQuestionModel.type) {
+              $scope.combo.selected.type = validTypes[index];
               break;
             }
           }
+
         }
       };
       loadCombo();
@@ -61,7 +91,7 @@ angular.module('forms').directive('scTextQuestion', function () {
       $scope.save = function () {
         $scope.working = true;
 
-        $scope.view.question.question = 'TEXT';
+        $scope.view.question.question = $scope.questionType.toUpperCase();
         $scope.view.question.type = $scope.combo.selected.type.value;
 
         var build = SCForm.$new($scope.scFormModel.id).SCSection().$new($scope.combo.selected.section.id).SCQuestion().$build();
@@ -109,7 +139,7 @@ angular.module('forms').directive('scTextQuestion', function () {
 
       // On Cancel button
       $scope.cancel = function () {
-        $scope.view.isEditing = false;
+        $scope.close();
       };
 
       // On edit button
