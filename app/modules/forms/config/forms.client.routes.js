@@ -4,17 +4,16 @@
 angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/forms/app', '/forms/app/menu01');
-    $urlRouterProvider.when('/forms/app/menu01', '/forms/app/menu01/form');
-    $urlRouterProvider.when('/forms/app/menu01/form', '/forms/app/menu01/form/search');
+    $urlRouterProvider.when('/forms/app', '/forms/app/form');
+    $urlRouterProvider.when('/forms/app/form', '/forms/app/form/search');
 
-    $urlRouterProvider.when('/forms/app/menu01/form/edit/:form', '/forms/app/menu01/form/edit/:form/summary');
+    $urlRouterProvider.when('/forms/app/form/edit/:form', '/forms/app/form/edit/:form/summary');
 
     $stateProvider
       .state('forms', {
         abstract: true,
         url: '/forms',
-        templateUrl: 'modules/forms/views/_body.html',
+        template: '<div ui-view></div>',
         controller: 'FormsController'
       })
       .state('forms.home', {
@@ -32,52 +31,36 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         }
       })
 
-      .state('forms.app.menu01', {
-        url: '/menu01',
-        template: '<div ui-view></div>',
-        abstract: true
-      })
-      .state('forms.app.menu02', {
-        url: '/menu02',
-        template: '<div ui-view></div>',
-        abstract: true
-      })
-      .state('forms.app.menu03', {
-        url: '/menu01',
-        template: '<div ui-view></div>',
-        abstract: true
-      })
-
       //Direccion regional
-      .state('forms.app.menu01.form', {
+      .state('forms.app.form', {
         url: '/form',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }
       })
-      .state('forms.app.menu01.form.search', {
+      .state('forms.app.form.search', {
         url: '/search',
-        templateUrl: 'modules/forms/views/menu01/form/form-search.html',
+        templateUrl: 'modules/forms/views/form/form-search.html',
         controller: 'Forms.Form.SearchController',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Home'
         }
       })
-      .state('forms.app.menu01.form.create', {
+      .state('forms.app.form.create', {
         url: '/create',
-        templateUrl: 'modules/forms/views/menu01/form/form-create.html',
+        templateUrl: 'modules/forms/views/form/form-create.html',
         controller: 'Forms.Form.CreateController',
         resolve: {},
         ncyBreadcrumb: {
           label: 'Crear encuesta',
-          parent: 'forms.app.menu01.form.search'
+          parent: 'forms.app.form.search'
         }
       })
-      .state('forms.app.menu01.form.edit', {
+      .state('forms.app.form.edit', {
         url: '/edit/:form',
-        templateUrl: 'modules/forms/views/menu01/form/form-edit.html',
+        templateUrl: 'modules/forms/views/form/form-edit.html',
         resolve: {
           form: function ($state, $stateParams, SCForm) {
             return SCForm.$find($stateParams.form);
@@ -86,12 +69,12 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         controller: 'Forms.Form.EditController',
         ncyBreadcrumb: {
           label: 'Editar encuesta',
-          parent: 'forms.app.menu01.form.search'
+          parent: 'forms.app.form.search'
         }
       })
-      .state('forms.app.menu01.form.edit.summary', {
+      .state('forms.app.form.edit.summary', {
         url: '/summary',
-        templateUrl: 'modules/forms/views/menu01/form/form-edit-summary.html',
+        templateUrl: 'modules/forms/views/form/form-edit-summary.html',
         controller: 'Forms.Form.Edit.SummaryController',
         resolve: {
         },
@@ -99,9 +82,9 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           skip: true
         }
       })
-      .state('forms.app.menu01.form.edit.principaldata', {
+      .state('forms.app.form.edit.principaldata', {
         url: '/principaldata',
-        templateUrl: 'modules/forms/views/menu01/form/form-edit-principaldata.html',
+        templateUrl: 'modules/forms/views/form/form-edit-principaldata.html',
         controller: 'Forms.Form.Edit.PrincipalDataController',
         resolve: {
         },
@@ -109,9 +92,9 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           label: 'Datos principales'
         }
       })
-      .state('forms.app.menu01.form.edit.builder', {
+      .state('forms.app.form.edit.builder', {
         url: '/builder',
-        templateUrl: 'modules/forms/views/menu01/form/form-edit-builder.html',
+        templateUrl: 'modules/forms/views/form/form-edit-builder.html',
         controller: 'Forms.Form.Edit.BuilderController',
         resolve: {
         },

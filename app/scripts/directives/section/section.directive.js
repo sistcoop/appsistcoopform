@@ -12,7 +12,7 @@ angular.module('forms').directive('scSection', function () {
       onClosed: '&'
     },
     replace: true,
-    templateUrl: 'modules/forms/directives/section/section.html',
+    templateUrl: 'scripts/directives/section/section.html',
     controller: ['$scope', '$filter', 'toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
       $scope.working = false;

@@ -14,7 +14,7 @@ angular.module('forms').directive('scTextQuestion', function () {
       onClosed: '&'
     },
     replace: true,
-    templateUrl: 'modules/forms/directives/text-question/text.question.html',
+    templateUrl: 'scripts/directives/text-question/text.question.html',
     controller: ['$scope', '$filter', 'toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
       $scope.working = false;

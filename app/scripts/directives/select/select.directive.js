@@ -10,7 +10,7 @@ angular.module('forms').directive('scSelect', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'modules/forms/directives/select/select.html',
+    templateUrl: 'scripts/directives/select/select.html',
     controller: ['$scope', function ($scope) {
       $scope.elements = [];
       $scope.type = $scope.type.toLowerCase();
