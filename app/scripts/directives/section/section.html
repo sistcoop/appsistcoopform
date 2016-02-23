@@ -5,14 +5,14 @@
         <h3>
           {{view.section.number}}.&nbsp;{{view.section.title}}<small>.&nbsp;{{view.section.description}}</small>
           <div class="btn-group pull-right">
-            <button data-ng-if="view.section.id && !view.isEditing" data-ng-click="edit()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
-            <button data-ng-if="view.section.id" data-ng-click="remove()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
-            <button data-ng-if="!view.section.id" data-ng-click="close()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
+            <button data-ng-show="!isEditing" data-ng-click="open()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+            <button data-ng-show="isEditing" data-ng-click="close()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Cerrar"><i class="fa fa-close"></i></button>
+            <button data-ng-show="view.section.id" data-ng-click="onRemove()" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
           </div>
         </h3>
       </legend>
 
-      <form data-ng-if="view.isEditing || !view.section.id" name="form" class="form-horizontal" novalidate>
+      <form data-ng-if="isEditing" name="form" class="form-horizontal" novalidate>
         <div class="form-group" data-ng-class="{ 'has-error' : form.number.$invalid && form.$submitted }">
           <label class="col-sm-2 control-label"><span class="required">*</span> Numero:</label>
           <div class="col-sm-3">
@@ -45,17 +45,17 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button sg-save ng-disabled="working">
-              <span ng-show="working">Guardando...</span>
-              <span ng-hide="working">Guardar</span>
+            <button sg-save ng-disabled="isWorking">
+              <span ng-show="isWorking">Guardando...</span>
+              <span ng-hide="isWorking">Guardar</span>
             </button>
-            <button data-ng-if="view.isEditing" type="button" class="btn btn-default" data-ng-click="cancel()">Cancelar</button>
+            <button data-ng-show="isEditing" data-ng-click="close()" type="button" class="btn btn-default">Cancelar</button>
           </div>
         </div>
       </form>
 
-      <div data-ng-repeat="item in questions">
-        <sc-text-question sc-form-model="scFormModel" sc-section-model="scSectionModel" sc-question-model="item" on-saved="questionCreated()" on-removed="questionRemoved($index)"></sc-text-question>
+      <div data-ng-repeat="item in scQuestions">
+        <sc-question data-ng-model="item" is-working="isWorking" on-save="onQuestionSave()" on-remove="onQuestionRemove()"></sc-question>
       </div>
 
     </fieldset>

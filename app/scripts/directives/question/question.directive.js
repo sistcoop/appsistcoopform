@@ -15,7 +15,7 @@ angular.module('forms').directive('scQuestion', function () {
     templateUrl: 'scripts/directives/question/question.html',
     controller: ['$scope', '$filter', 'toastr', 'SGDialog', 'SCForm', function ($scope, $filter, toastr, SGDialog, SCForm) {
 
-      $scope.isEditing = $scope.;
+     // $scope.isEditing = $scope.;
 
       // Load question type if it is defined
       var loadQuestionType = function(){
