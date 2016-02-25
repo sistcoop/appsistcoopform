@@ -39,6 +39,21 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           skip: true // Never display this state in breadcrumb.
         }
       })
+      .state('forms.app.answer', {
+        url: '/answer',
+        template: '<div ui-view></div>',
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+      .state('forms.app.result', {
+        url: '/answer',
+        template: '<div ui-view></div>',
+        ncyBreadcrumb: {
+          skip: true // Never display this state in breadcrumb.
+        }
+      })
+
       .state('forms.app.form.search', {
         url: '/search',
         templateUrl: 'modules/forms/views/form/form-search.html',

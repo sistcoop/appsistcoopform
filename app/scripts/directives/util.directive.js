@@ -17,7 +17,9 @@ angular.module(ApplicationConfiguration.applicationModuleName)
                 //ngValid.removeClass('error');
                 ngValid.parent().removeClass('has-error');
                 /* jshint -W069 */
-                $scope['save']();
+                if(attr.onSave) $scope[attr.onSave]();
+                else $scope['save']();
+
               } else {
                 console.log('Missing or invalid field(s). Please verify the fields in red.');
                 //ngValid.removeClass('error');

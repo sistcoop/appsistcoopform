@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('forms').controller('Forms.Form.Edit.BuilderController',
-  function ($scope, $state, $filter, toastr, form, SCForm) {
+  function ($scope, $state, $filter, toastr, form, SCForm, SGDialog) {
 
     $scope.working = false;
 
@@ -13,22 +13,22 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
     $scope.view.elementToCreate = {
       selected: undefined,
       section: $scope.view.form.SCSection().$build(),
+
       question: undefined,
-      combo: {
-        section: $scope.sections,
-        selected: {
-          section: undefined
-        }
-      },
+      sectionComboSelected: undefined,
+
       clear: function () {
+        this.selected = undefined;
         this.section = $scope.view.form.SCSection().$build();
         this.question = undefined;
-        this.combo = {
-          section: $scope.sections,
-          selected: {
-            section: undefined
-          }
-        }
+        this.type = undefined;
+      }
+    };
+    $scope.setOperation = function(element, type) {
+      $scope.view.elementToCreate.selected = element;
+      if(type) {
+        $scope.view.elementToCreate.question = {};
+        $scope.view.elementToCreate.question.question = type.toUpperCase();
       }
     };
 
@@ -42,15 +42,36 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
     };
     $scope.loadSections();
 
-    var addSection = function (section) {
-      if (angular.isArray(section)) {
-        $scope.sections = $filter('orderBy')($scope.sections.concat(section), 'number');
-      } else {
-        $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
+    var findSectionById = function (sectionId) {
+      for (var i = 0; i < $scope.sections.length; i++) {
+        if($scope.sections[i].id == sectionId)
+          return $scope.sections[i];
       }
+    };
+    var addSection = function (section) {
+      if (!angular.isArray(section)) {
+        reloadSection(section);
+        $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
+        /*$scope.view.form.SCSection().$new(section.id).SCQuestion().$getAll().then(function(response) {
+          section.questions = response;
+          $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
+        });*/
+      } else {
+        for (var i = 0; i < section.length; i++) {
+          addSection(section[i]);
+        }
+      }
+    };
+    var reloadSection = function(section) {
+      $scope.view.form.SCSection().$new(section.id).SCQuestion().$getAll().then(function(response) {
+        section.questions = response;
+      });
     };
     var removeSection = function (index) {
       $scope.sections.splice(index, 1);
+    };
+    var removeQuestion = function (section, index) {
+      section.questions.splice(index, 1);
     };
 
     // Navbar methods
@@ -72,16 +93,18 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
 
     $scope.createQuestionElement = function () {
       $scope.working = true;
-      var section = $scope.view.elementToCreate.combo.selected.section;
+      var section = $scope.view.elementToCreate.sectionComboSelected;
       var question = $scope.view.form.SCSection().$new(section.id).SCQuestion().$build();
-      $scope.view.elementToCreate.question = angular.extend(question, $scope.view.elementToCreate.question);
 
-      $scope.view.elementToCreate.question.$save().then(
+      var questionToSave = angular.extend(question, $scope.view.elementToCreate.question);
+      questionToSave.section = undefined;
+
+      questionToSave.$save().then(
         function (response) {
           $scope.working = false;
           toastr.success('Pregunta guardada');
-          section.questions.push(response);
           $scope.view.elementToCreate.clear();
+          reloadSection(findSectionById(section.id));
         },
         function error(err) {
           $scope.working = false;
@@ -90,13 +113,20 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
       );
     };
 
+
     // Sections parts
-    $scope.saveSection = function(section){
+    $scope.updateSection = function(section){
       $scope.working = true;
-      section.$save().then(
+
+      var sectionToUpdate = angular.copy(section);
+      sectionToUpdate.isEditing = undefined;
+      sectionToUpdate.questions = undefined;
+
+      sectionToUpdate.$save().then(
         function (response) {
           $scope.working = false;
           toastr.success('Seccion guardada');
+          section.isEditing = false;
         },
         function error(err) {
           $scope.working = false;
@@ -104,13 +134,19 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
         }
       );
     };
-    $scope.removeSection = function(section, index){
+    $scope.updateQuestion = function(section, question){
       $scope.working = true;
-      section.$remove().then(
+
+      var questionToUpdate = $scope.view.form.SCSection().$new(section.id).SCQuestion().$new(question.id);
+      questionToUpdate = angular.extend(questionToUpdate, question);
+
+      questionToUpdate.isEditing = undefined;
+
+      questionToUpdate.$save().then(
         function (response) {
           $scope.working = false;
-          toastr.success('Seccion eliminada');
-          removeSection(index);
+          toastr.success('Pregunta guardada');
+          question.isEditing = false;
         },
         function error(err) {
           $scope.working = false;
@@ -119,32 +155,38 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
       );
     };
 
-    $scope.saveQuestion = function(question) {
-      $scope.working = true;
-      question.$save().then(
-        function (response) {
-          $scope.working = false;
-          toastr.success('Pregunta guardada');
-        },
-        function error(err) {
-          $scope.working = false;
-          toastr.error(err.data.errorMessage);
-        }
-      );
+    $scope.removeSection = function(section, index){
+      SGDialog.confirmDelete(section.title, 'seccion', function () {
+        $scope.working = true;
+        section.$remove().then(
+          function (response) {
+            $scope.working = false;
+            toastr.success('Seccion eliminada');
+            removeSection(index);
+          },
+          function error(err) {
+            $scope.working = false;
+            toastr.error(err.data.errorMessage);
+          }
+        );
+      });
     };
     $scope.removeQuestion = function(section, question, index){
-      $scope.working = true;
-      question.$remove().then(
-        function (response) {
-          $scope.working = false;
-          toastr.success('Seccion eliminada');
-          section.questions.split(index, 1);
-        },
-        function error(err) {
-          $scope.working = false;
-          toastr.error(err.data.errorMessage);
-        }
-      );
+      SGDialog.confirmDelete(question.title, 'pregunta', function () {
+        $scope.working = true;
+        var questionToRemove = $scope.view.form.SCSection().$new(section.id).SCQuestion().$new(question.id);
+        questionToRemove.$remove().then(
+          function (response) {
+            $scope.working = false;
+            toastr.success('Pregunta eliminada');
+            removeQuestion(section, index);
+          },
+          function error(err) {
+            $scope.working = false;
+            toastr.error(err.data.errorMessage);
+          }
+        );
+      });
     };
 
   });

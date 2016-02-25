@@ -1,7 +1,7 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('forms').directive('scQuestion', function () {
+angular.module('forms').directive('scQuestionNumber', function () {
   return {
     restrict: 'E',
     scope: {
@@ -9,15 +9,12 @@ angular.module('forms').directive('scQuestion', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/question/question.html',
+    templateUrl: 'scripts/directives/question-number/question.number.html',
     controller: ['$scope', function ($scope) {
       $scope.combo = {
         type: [
-          {name: 'TEXTO', value: 'TEXT'},
-          {name: 'NUMERO', value: 'NUMBER'},
-          {name: 'FECHA Y/O HORA', value: 'DATETIME'},
-          {name: 'OPCIONES', value: 'SELECT'},
-          {name: 'TABLA', value: 'GRID'}
+          {name: 'ENTERO', value: 'INTEGER'},
+          {name: 'DECIMAL', value: 'DECIMAL'}
         ]
       };
     }],
