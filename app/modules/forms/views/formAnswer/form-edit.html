@@ -4,30 +4,47 @@
   <div class="panel-body" style="padding-top: 0; padding-bottom: 0;">
     <div class="row">
       <div class="col-sm-8 col-md-9">
-        <form name="form" class="form-horizontal" novalidate>
+        <form name="form" data-ng-submit="" class="form-horizontal" novalidate>
           <div class="page-header page-header-bleed-right">
-            <h1><strong>Editar respuesta</strong></h1>
+            <h1>
+              <strong>Editar respuesta</strong>
+              <div class="input-group pull-right" style="padding-right: 5px;">
+                <button sg-save on-save="saveSection" ng-disabled="working">
+                  <span ng-show="working">Guardando...</span>
+                  <span ng-hide="working">Guardar</span>
+                </button>
+              </div>
+            </h1>
           </div>
-
           <div class="row">
-            <div class="col-sm-offset-2 col-sm-8 text-center">
-              <uib-pagination boundary-links="true" total-items="sections.length" ng-model="paginationOptions.page" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+            <div class="col-sm-12 text-right">
+              <uib-pagination boundary-links="true" total-items="sections.length" items-per-page="1" ng-model="paginationOptions.page" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
 
           <div class="row">
             <div class="col-sm-12">
-              <div data-ng-repeat-start="section in sections | orderBy : 'number' ">
+              <div>
                 <fieldset class="border-top">
-                  <legend><h4>{{section.number}}.&nbsp;{{section.title}}<small>.&nbsp;{{section.description}}</small></h4></legend>
+                  <legend>
+                    <h4>
+                      {{sections[paginationOptions.page - 1].number}}.&nbsp;{{sections[paginationOptions.page -1].title}}
+                      <small>.&nbsp;{{sections[paginationOptions.page - 1].description}}</small>
+                    </h4>
+                  </legend>
                 </fieldset>
               </div>
-              <div data-ng-repeat-end data-ng-repeat="question in section.questions | orderBy : 'number' " class="row">
+              <div class="row" data-ng-repeat="question in sections[paginationOptions.page - 1].questions | orderBy : 'number' ">
                 <div class="col-sm-12">
                   <sc-answer data-ng-model="question.answer" question="question" is-active="true"></sc-answer>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <uib-pagination boundary-links="true" total-items="sections.length" items-per-page="1" ng-model="paginationOptions.page" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
             </div>
           </div>
         </form>

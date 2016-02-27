@@ -177,7 +177,11 @@ angular.module(ApplicationConfiguration.applicationModuleName)
     var SCFormAnswer = new RestObject('formAnswers', FormRestangular, extendMethod);
 
     SCFormAnswer.SCAnswer = function () {
-      var extendMethod = {};
+      var extendMethod = {
+        $saveAll: function (objects) {
+          return FormRestangular.one(this.$getBasePath(), this.id).all('save').post(objects);
+        }
+      };
       var SCAnswer = new RestObject(this.$concatSubResourcePath('answers'), FormRestangular, extendMethod);
 
       /*SCSection.SCQuestion = function(){

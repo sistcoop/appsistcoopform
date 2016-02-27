@@ -11,7 +11,7 @@ angular.module('forms').directive('scAnswerNumber', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/answer-text/answer.text.html',
+    templateUrl: 'scripts/directives/answer-number/answer.number.html',
     controller: ['$scope', function ($scope) {
 
     }],
