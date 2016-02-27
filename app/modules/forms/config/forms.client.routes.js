@@ -9,6 +9,9 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
 
     $urlRouterProvider.when('/forms/app/form/edit/:form', '/forms/app/form/edit/:form/summary');
 
+    $urlRouterProvider.when('/forms/app/formAnswer', '/forms/app/formAnswer/search');
+    $urlRouterProvider.when('/forms/app/formAnswer/search', '/forms/app/formAnswer/search/all');
+
     $stateProvider
       .state('forms', {
         abstract: true,
@@ -39,15 +42,15 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           skip: true // Never display this state in breadcrumb.
         }
       })
-      .state('forms.app.answer', {
-        url: '/answer',
+      .state('forms.app.formAnswer', {
+        url: '/formAnswer',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
         }
       })
       .state('forms.app.result', {
-        url: '/answer',
+        url: '/result',
         template: '<div ui-view></div>',
         ncyBreadcrumb: {
           skip: true // Never display this state in breadcrumb.
@@ -115,6 +118,50 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
         },
         ncyBreadcrumb: {
           label: 'Editor'
+        }
+      })
+
+      .state('forms.app.formAnswer.search', {
+        url: '/search',
+        templateUrl: 'modules/forms/views/formAnswer/form-search.html',
+        controller: 'Forms.FormAnswer.SearchController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Home'
+        }
+      })
+      .state('forms.app.formAnswer.search.all', {
+        url: '/all',
+        templateUrl: 'modules/forms/views/formAnswer/form-search-all.html',
+        controller: 'Forms.FormAnswer.Search.AllController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          label: 'Todos'
+        }
+      })
+      .state('forms.app.formAnswer.search.saved', {
+        url: '/saved',
+        templateUrl: 'modules/forms/views/formAnswer/form-search-saved.html',
+        controller: 'Forms.FormAnswer.Search.SavedController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          label: 'Guardados'
+        }
+      })
+      .state('forms.app.formAnswer.edit', {
+        url: '/edit/:formAnswer',
+        templateUrl: 'modules/forms/views/formAnswer/form-edit.html',
+        resolve: {
+          formAnswer: function ($state, $stateParams, SCFormAnswer) {
+            return SCFormAnswer.$find($stateParams.formAnswer);
+          }
+        },
+        controller: 'Forms.FormAnswer.EditController',
+        ncyBreadcrumb: {
+          label: 'Editar respuesta',
+          parent: 'forms.app.formAnswer.search'
         }
       });
 

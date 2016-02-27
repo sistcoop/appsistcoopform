@@ -69,7 +69,7 @@
       </div>
       <div class="panel-body">
 
-        <form data-ng-repeat-start="item in sections" data-ng-submit="updateSection(item)" name="form" class="form-horizontal" novalidate>
+        <form data-ng-repeat-start="item in sections | orderBy : 'number' " data-ng-submit="updateSection(item)" name="form" class="form-horizontal" novalidate>
           <div class="btn-group pull-right" style="margin-bottom: -5px;">
             <button data-ng-click="item.isEditing = !item.isEditing" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
             <button data-ng-click="removeSection(item, $index)" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
@@ -85,7 +85,7 @@
             </div>
           </div>
         </form>
-        <div data-ng-repeat-end data-ng-repeat="question in item.questions" class="row">
+        <div data-ng-repeat-end data-ng-repeat="question in item.questions | orderBy : 'number' " class="row">
           <div class="col-sm-11">
             <form data-ng-submit="updateQuestion(item, question)" name="form" class="form-horizontal" novalidate>
               <div class="btn-group pull-right" style="margin-bottom: -5px;">

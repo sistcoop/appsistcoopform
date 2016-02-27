@@ -67,11 +67,11 @@ var RestObject = function (path, restangular, extendMethods) {
 
   modelMethods = angular.extend(modelMethods, extendMethods);
 
-  function extendObject(obj, modelMethods){
+  function extendObject(obj, modelMethods) {
     angular.extend(obj, modelMethods);
   }
 
-  function extendArray(obj, modelMethods){
+  function extendArray(obj, modelMethods) {
     angular.forEach(obj, function (row) {
       if (angular.isObject(row)) {
         if (!angular.isArray(row)) {
@@ -81,7 +81,7 @@ var RestObject = function (path, restangular, extendMethods) {
     });
   }
 
-  function automaticExtend(obj, modelMethods){
+  function automaticExtend(obj, modelMethods) {
     if (angular.isDefined(obj)) {
       if (angular.isObject(obj)) {
         if (angular.isArray(obj)) {
@@ -141,19 +141,52 @@ angular.module(ApplicationConfiguration.applicationModuleName)
        }*/
     };
 
-    var SCForm =  new RestObject('forms', FormRestangular, extendMethod);
+    var SCForm = new RestObject('forms', FormRestangular, extendMethod);
 
     SCForm.SCSection = function () {
       var extendMethod = {};
       var SCSection = new RestObject(this.$concatSubResourcePath('sections'), FormRestangular, extendMethod);
 
-      SCSection.SCQuestion = function(){
+      SCSection.SCQuestion = function () {
         var extendMethod = {};
-        return new RestObject(this.$concatSubResourcePath('questions'), FormRestangular, extendMethod);
+        var SCQuestion = RestObject(this.$concatSubResourcePath('questions'), FormRestangular, extendMethod);
+
+        SCQuestion.SCAnswer = function () {
+          var extendMethod = {};
+          var SCAnswer = RestObject(this.$concatSubResourcePath('answers'), FormRestangular, extendMethod);
+
+          return SCAnswer;
+        };
+
+        return SCQuestion;
       };
 
       return SCSection;
     };
 
     return SCForm;
+  }])
+
+  .factory('SCFormAnswer', ['FormRestangular', function (FormRestangular) {
+    var extendMethod = {
+      /*$getCuentaAporte: function () {
+       return CertambRestangular.one(this.$getBasePath(), this.id).customGET('cuentaAporte', {});
+       }*/
+    };
+
+    var SCFormAnswer = new RestObject('formAnswers', FormRestangular, extendMethod);
+
+    SCFormAnswer.SCAnswer = function () {
+      var extendMethod = {};
+      var SCAnswer = new RestObject(this.$concatSubResourcePath('answers'), FormRestangular, extendMethod);
+
+      /*SCSection.SCQuestion = function(){
+       var extendMethod = {};
+       return new RestObject(this.$concatSubResourcePath('questions'), FormRestangular, extendMethod);
+       };*/
+
+      return SCAnswer;
+    };
+
+    return SCFormAnswer;
   }]);

@@ -1,0 +1,17 @@
+<div class="row">
+  <div ng-class="{'col-sm-offset-1 col-sm-10': !isEditing, 'col-sm-12': isEditing}">
+    <fieldset class="border-top">
+      <legend>
+        <h4>
+          {{question.number}}.&nbsp;{{question.title}}
+          <span data-ng-if="question.required" class="required">&nbsp;*</span>
+          <small>.&nbsp;{{question.description}}</small>
+        </h4>
+      </legend>
+      <div>
+        <sc-answer-text data-ng-if="question.question === 'TEXT'" data-ng-model="answer.stringValue" type="question.type" is-required="question.required" is-active="isActive">
+        </sc-answer-text>
+      </div>
+    </fieldset>
+  </div>
+</div>

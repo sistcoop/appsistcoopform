@@ -52,10 +52,6 @@ angular.module('forms').controller('Forms.Form.Edit.BuilderController',
       if (!angular.isArray(section)) {
         reloadSection(section);
         $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
-        /*$scope.view.form.SCSection().$new(section.id).SCQuestion().$getAll().then(function(response) {
-          section.questions = response;
-          $scope.sections = $filter('orderBy')($scope.sections.concat([section]), 'number');
-        });*/
       } else {
         for (var i = 0; i < section.length; i++) {
           addSection(section[i]);

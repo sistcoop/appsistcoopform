@@ -1,0 +1,25 @@
+<div class="form-group">
+  <div class="col-sm-6">
+    <ul class="list-unstyled">
+      <li data-ng-repeat="item in options | orderBy: 'number' ">
+        <div class="input-group" style="padding: 5px;">
+          <div class="input-group-addon" style="background-color: white; border: 0;">
+            <i class="fa fa-ellipsis-v"></i>&nbsp;
+            <i class="fa fa-ellipsis-v"></i>
+          </div>
+          <span data-ng-if="type === 'DROPDOWN'" class="input-group-addon" style="background-color: white; border: 0;">{{$index + 1}}.</span>
+          <span data-ng-if="type === 'MULTIPLE'" class="input-group-addon" style="background-color: white; border: 0;"><input type="radio" disabled></span>
+          <span data-ng-if="type === 'VERIFICATION'" class="input-group-addon" style="background-color: white; border: 0;"><input type="checkbox" disabled></span>
+
+          <input data-ng-if="!item.editable" type="text" data-ng-model="item.denomination" class="form-control" disabled required>
+          <table data-ng-if="item.editable" style="margin-top: 0;">
+            <tr>
+              <td>&nbsp;{{item.denomination}}:&nbsp;</td>
+              <td><input type="text" class="form-control" placeholder="Respuesta" disabled required></td>
+            </tr>
+          </table>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
