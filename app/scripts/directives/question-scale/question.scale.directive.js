@@ -1,7 +1,7 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('forms').directive('scQuestion', function () {
+angular.module('forms').directive('scQuestionScale', function () {
   return {
     restrict: 'E',
     scope: {
@@ -9,17 +9,13 @@ angular.module('forms').directive('scQuestion', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/question/question.html',
+    templateUrl: 'scripts/directives/question-scale/question.scale.html',
     controller: ['$scope', function ($scope) {
-      $scope.combo = {
-        type: [
-          {name: 'TEXTO', value: 'TEXT'},
-          {name: 'NUMERO', value: 'NUMBER'},
-          {name: 'FECHA Y/O HORA', value: 'DATETIME'},
-          {name: 'OPCIONES', value: 'SELECT'},
-          {name: 'ESCALA', value: 'SCALE'},
-          {name: 'TABLA', value: 'GRID'}
-        ]
+      $scope.range = function(min, max, step){
+        step = step || 1;
+        var input = [];
+        for (var i = min; i <= max; i += step) input.push(i);
+        return input;
       };
     }],
     link: function (scope, element, attrs, ngModel) {

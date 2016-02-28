@@ -12,6 +12,8 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.when('/forms/app/formAnswer', '/forms/app/formAnswer/search');
     $urlRouterProvider.when('/forms/app/formAnswer/search', '/forms/app/formAnswer/search/all');
 
+    $urlRouterProvider.when('/forms/app/result', '/forms/app/result/search');
+
     $stateProvider
       .state('forms', {
         abstract: true,
@@ -163,7 +165,40 @@ angular.module('forms').config(['$stateProvider', '$urlRouterProvider',
           label: 'Editar respuesta',
           parent: 'forms.app.formAnswer.search'
         }
-      });
+      })
 
+      .state('forms.app.result.search', {
+        url: '/search',
+        templateUrl: 'modules/forms/views/result/form-search.html',
+        controller: 'Forms.Result.SearchController',
+        resolve: {},
+        ncyBreadcrumb: {
+          label: 'Home'
+        }
+      })
+      .state('forms.app.result.edit', {
+        url: '/edit/:form',
+        templateUrl: 'modules/forms/views/result/form-edit.html',
+        resolve: {
+          form: function ($state, $stateParams, SCForm) {
+            return SCForm.$find($stateParams.form);
+          }
+        },
+        controller: 'Forms.Result.EditController',
+        ncyBreadcrumb: {
+          label: 'Editar resultados',
+          parent: 'forms.app.result.search'
+        }
+      })
+      .state('forms.app.result.edit.summary', {
+        url: '/summary',
+        templateUrl: 'modules/forms/views/result/form-edit-summary.html',
+        controller: 'Forms.Result.Edit.SummaryController',
+        resolve: {
+        },
+        ncyBreadcrumb: {
+          skip: true
+        }
+      });
   }
 ]);

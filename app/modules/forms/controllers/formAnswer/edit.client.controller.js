@@ -37,7 +37,7 @@ angular.module('forms').controller('Forms.FormAnswer.EditController',
 
     $scope.loadSections = function () {
       $scope.view.form.SCSection().$getAll().then(function (response) {
-        $scope.sections = $filter('orderBy')(response, 'number');;
+        $scope.sections = $filter('orderBy')(response, 'number');
         angular.forEach($scope.sections, function(section) {
           loadQuestionsOfSection(section);
         });
@@ -48,12 +48,27 @@ angular.module('forms').controller('Forms.FormAnswer.EditController',
     $scope.saveSection = function () {
       $scope.working = true;
       var section = $scope.sections[$scope.paginationOptions.page -1];
-      var questions = section.questions;
-      $scope.view.formAnswer.SCAnswer().$saveAll(questions).then(
+      var answers = [];
+      for(var i = 0; i < section.questions.length; i++) {
+        var answer = section.questions[i].answer;
+        answers[i] = {
+          id: answer.id,
+          stringValue: answer.stringValue,
+          dateValue: answer.dateValue,
+          numberValue: answer.numberValue,
+          integerValue: answer.integerValue,
+          listValues: answer.listValues,
+          mapValues: answer.mapValues
+        };
+        answers[i].question = {
+          id: section.questions[i].id
+        };
+      }
+
+      $scope.view.formAnswer.SCAnswer().$saveAll(answers).then(
         function (response) {
           $scope.working = false;
           toastr.success('Respuestas guardadas');
-          $state.go('^.edit', {form: response.id});
         },
         function error(err){
           $scope.working = false;

@@ -11,6 +11,8 @@
                 <dd data-ng-bind="view.form.title"></dd>
                 <dt>Descripcion:</dt>
                 <dd data-ng-bind="view.form.description"></dd>
+                <dt>Estado:</dt>
+                <dd data-ng-bind="view.form.active | si_no : 'ACTIVO' "></dd>
               </dl>
             </div>
           </div>
@@ -19,6 +21,7 @@
     </div>
 
   </div>
+  <!--
   <div class="col-sm-5">
     <div class="panel panel-default">
       <div class="panel-body">
@@ -31,4 +34,5 @@
       </div>
     </div>
   </div>
+  -->
 </div>

@@ -11,22 +11,44 @@ angular.module('forms').directive('scAnswerDatetime', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/answer-text/answer.text.html',
+    templateUrl: 'scripts/directives/answer-datetime/answer.datetime.html',
     controller: ['$scope', function ($scope) {
-
+      $scope.date;
+      $scope.time;
     }],
     link: function (scope, element, attrs, ngModel) {
-      scope.answer;
 
       scope.$watch(function () {
         return ngModel.$modelValue;
       }, function (newValue, oldValue) {
-        scope.answer = newValue;
+        if(newValue) {
+          scope.date = new Date(newValue);
+          scope.time = new Date(newValue);
+        }
       }, true);
 
-      scope.$watch('answer', function (newVal, oldVal) {
+      scope.$watch('date', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          ngModel.$setViewValue(newVal);
+          var date = newVal;
+          if(scope.time) {
+            date.setHours(scope.time.getHours());
+            date.setMinutes(scope.time.getMinutes());
+          }
+
+          ngModel.$setViewValue(date);
+          ngModel.$render();
+        }
+      }, true);
+      scope.$watch('time', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          if(!scope.date) {
+            scope.date = new Date();
+          }
+          var date = scope.date;
+          date.setHours(scope.time.getHours());
+          date.setMinutes(scope.time.getMinutes());
+
+          ngModel.$setViewValue(date);
           ngModel.$render();
         }
       }, true);

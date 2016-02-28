@@ -6,7 +6,7 @@
   <div class="form-group" data-ng-class="{ 'has-error' : form.title.$invalid && form.$submitted }">
     <label class="col-sm-2 control-label"><span class="required">*</span> Titulo:</label>
     <div class="col-sm-4">
-      <input name="title" type="text" data-ng-model="view.form.title" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" required/>
+      <input name="title" type="text" data-ng-model="view.form.title" data-ng-minlength="1" data-ng-maxlength="200" class="form-control" pf-focused="true" autofocus required/>
       <div data-ng-messages="form.title.$error" data-ng-if="form.title.$submitted">
         <div class="has-error" data-ng-message="required">Ingrese titulo.</div>
         <div class="has-error" data-ng-message="minlength">Ingrese titulo.</div>

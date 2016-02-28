@@ -14,6 +14,7 @@
         <li><a href="" data-ng-click="setOperation('question', 'number')" tooltip-placement="bottom" uib-tooltip="Nuevo numero">Numero</a></li>
         <li><a href="" data-ng-click="setOperation('question', 'datetime')" tooltip-placement="bottom" uib-tooltip="Nueva fecha">Fecha</a></li>
         <li><a href="" data-ng-click="setOperation('question', 'select')" tooltip-placement="bottom" uib-tooltip="Nueva seleccion">Seleccion</a></li>
+        <li><a href="" data-ng-click="setOperation('question', 'scale')" tooltip-placement="bottom" uib-tooltip="Nueva escala">Escala</a></li>
         <li><a href="" data-ng-click="setOperation('question', 'grid')" tooltip-placement="bottom" uib-tooltip="Nueva tabla">Tabla</a></li>
       </ul>
     </div>
@@ -41,7 +42,7 @@
           <sc-section data-ng-if="view.elementToCreate.selected == 'section'" data-ng-model="view.elementToCreate.section" is-editing="true"></sc-section>
           <sc-question data-ng-if="view.elementToCreate.selected == 'question'" data-ng-model="view.elementToCreate.question" is-editing="true"></sc-question>
 
-          <div class="form-group">
+          <div data-ng-if="!view.form.active" class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
               <button data-ng-if="view.elementToCreate.selected == 'section'" sg-save on-save="createSectionElement" ng-disabled="working">
                 <span ng-show="working">Guardando...</span>
@@ -70,7 +71,7 @@
       <div class="panel-body">
 
         <form data-ng-repeat-start="item in sections | orderBy : 'number' " data-ng-submit="updateSection(item)" name="form" class="form-horizontal" novalidate>
-          <div class="btn-group pull-right" style="margin-bottom: -5px;">
+          <div data-ng-if="!view.form.active" class="btn-group pull-right" style="margin-bottom: -5px;">
             <button data-ng-click="item.isEditing = !item.isEditing" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
             <button data-ng-click="removeSection(item, $index)" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
           </div>
@@ -88,7 +89,7 @@
         <div data-ng-repeat-end data-ng-repeat="question in item.questions | orderBy : 'number' " class="row">
           <div class="col-sm-11">
             <form data-ng-submit="updateQuestion(item, question)" name="form" class="form-horizontal" novalidate>
-              <div class="btn-group pull-right" style="margin-bottom: -5px;">
+              <div data-ng-if="!view.form.active" class="btn-group pull-right" style="margin-bottom: -5px;">
                 <button data-ng-click="question.isEditing = !question.isEditing" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
                 <button data-ng-click="removeQuestion(item, question, $index)" type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
               </div>

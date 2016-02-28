@@ -59,10 +59,12 @@
         <div data-ng-if="question.question == 'SELECT' ">
           <sc-question-select data-ng-model="question" is-editing="isEditing"></sc-question-select>
         </div>
+        <div data-ng-if="question.question == 'SCALE' ">
+          <sc-question-scale data-ng-model="question" is-editing="isEditing"></sc-question-scale>
+        </div>
         <div data-ng-if="question.question == 'GRID' ">
           <sc-question-grid data-ng-model="question" is-editing="isEditing"></sc-question-grid>
         </div>
-
       </div>
     </fieldset>
   </div>

@@ -43,7 +43,7 @@ angular.module('forms').controller('Forms.FormAnswer.Search.AllController',
       $scope.search = function () {
         var criteria = {
           filterText: $scope.filterOptions.filterText,
-          filters: [],
+          filters: [{name: 'active', value: true, operator: 'bool_eq'}],
           orders: [],
           paging: $scope.paginationOptions
         };

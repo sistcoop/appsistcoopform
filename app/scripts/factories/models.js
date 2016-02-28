@@ -136,9 +136,9 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
   .factory('SCForm', ['FormRestangular', function (FormRestangular) {
     var extendMethod = {
-      /*$getCuentaAporte: function () {
-       return CertambRestangular.one(this.$getBasePath(), this.id).customGET('cuentaAporte', {});
-       }*/
+      $active: function () {
+        return FormRestangular.one(this.$getBasePath(), this.id).all('active').post();
+      }
     };
 
     var SCForm = new RestObject('forms', FormRestangular, extendMethod);

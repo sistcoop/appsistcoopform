@@ -2,7 +2,7 @@
 
 /* jshint -W098 */
 angular.module('forms').controller('Forms.FormAnswer.Search.SavedController',
-    function ($scope, $state, toastr, SGDialog, SCForm) {
+    function ($scope, $state, toastr, SGDialog, SCFormAnswer, Auth) {
 
       $scope.paginationOptions = {
         page: 1,
@@ -23,32 +23,22 @@ angular.module('forms').controller('Forms.FormAnswer.Search.SavedController',
         paginationPageSize: 10
       };
       $scope.gridActions = {
-        edit: function (row) {
-          $state.go('^.edit', {form: row.id});
-        },
-        remove: function(row) {
-          SGDialog.confirmDelete(row.title, 'Encuesta', function() {
-            SCForm.$new(row.id).$remove().then(
-              function(response){
-                toastr.success('Encuesta eliminada satisfactoriamente');
-                $scope.search();
-              },
-              function error(err){
-                toastr.error(err.data.errorMessage);
-              }
-            );
-          });
+        answer: function(row) {
+          $state.go('^.^.edit', {formAnswer: row.id});
         }
       };
 
       $scope.search = function () {
         var criteria = {
           filterText: $scope.filterOptions.filterText,
-          filters: [],
+          filters: [
+            {name: 'user', value: Auth.authz.idTokenParsed.preferred_username, operator: 'eq'},
+            {name: 'valid', value: false, operator: 'bool_eq'}
+          ],
           orders: [],
           paging: $scope.paginationOptions
         };
-        SCForm.$search(criteria).then(function(response){
+        SCFormAnswer.$search(criteria).then(function(response){
           $scope.gridOptions.data = response.items;
           $scope.gridOptions.totalItems = response.totalSize;
         });
