@@ -18,7 +18,8 @@ var ApplicationConfiguration = (function () {
     'ui.select',
     'patternfly',
     'restangular',
-    'toastr'
+    'toastr',
+    'checklist-model'
   ];
 
   // Add a new vertical module

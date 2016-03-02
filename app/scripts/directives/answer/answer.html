@@ -14,13 +14,17 @@
         <sc-answer-number data-ng-if="question.question === 'NUMBER'" data-ng-model="answer.numberValue" type="question.type" is-required="question.required" is-active="isActive">
         </sc-answer-number>
         <sc-answer-datetime data-ng-if="question.question === 'DATETIME'" data-ng-model="answer.dateValue" type="question.type" is-required="question.required" is-active="isActive">
-        </sc-answer-datetime>car{{answer.listValues}}
+        </sc-answer-datetime>
+
         <sc-answer-select data-ng-if="question.question === 'SELECT'" data-ng-model="answer.listValues" type="question.type" options="question.selectOptions" is-required="question.required" is-active="isActive">
         </sc-answer-select>
+        <pre data-ng-show="question.question === 'SELECT'"> {{answer.listValues}}</pre>
+
+        <!--
         <sc-answer-select data-ng-if="question.question === 'SCALE'" data-ng-model="answer.integerValue" type="question.type" is-required="question.required" is-active="isActive">
         </sc-answer-select>
         <sc-answer-datagrid data-ng-if="question.question === 'GRID'" data-ng-model="answer.mapValues" type="question.type" is-required="question.required" is-active="isActive">
-        </sc-answer-datagrid>
+        </sc-answer-datagrid>-->
       </div>
     </fieldset>
   </div>

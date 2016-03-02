@@ -50,6 +50,7 @@ module.exports = function(config) {
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
       'bower_components/keycloak/dist/keycloak.js',
       'bower_components/angular-ui-select/dist/select.js',
+      'bower_components/checklist-model/checklist-model.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/config.js",

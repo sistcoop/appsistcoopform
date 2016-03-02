@@ -1,11 +1,10 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('forms').directive('scAnswerSelect', function () {
+angular.module('forms').directive('scAnswerSelectVerification', function () {
   return {
     restrict: 'E',
     scope: {
-      type: '=',
       isRequired: '=',
       isActive: '=?',
 
@@ -13,7 +12,7 @@ angular.module('forms').directive('scAnswerSelect', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/answer-select/answer.select.html',
+    templateUrl: 'scripts/directives/answer-select/answer.select.verification.html',
     controller: ['$scope', function ($scope) {
 
     }],
@@ -28,7 +27,6 @@ angular.module('forms').directive('scAnswerSelect', function () {
 
       scope.$watchCollection('selected', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          if(!scope.selected) scope.selected = [];
           ngModel.$setViewValue(scope.selected);
         }
       }, true);
