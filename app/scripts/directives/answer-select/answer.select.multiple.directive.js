@@ -21,13 +21,20 @@ angular.module('forms').directive('scAnswerSelectMultiple', function () {
         return ngModel.$modelValue;
       }, function (newValue, oldValue) {
         if(newValue) {
-          scope.selected = newValue;
+          for(var i = 0; i < scope.options.length; i++) {
+            if(scope.options[i].denomination === newValue[0]) {
+              if(scope.options[i].editable) {
+                scope.selectedEditable = newValue[0]; break;
+              } else {
+                scope.selectedNotEditable = newValue[0]; break;
+              }
+            }
+          }
         }
       }, true);
 
       scope.$watchCollection('selectedNotEditable', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          scope.selectedEditable = undefined;
           ngModel.$setViewValue([scope.selectedNotEditable]);
         }
       }, true);
