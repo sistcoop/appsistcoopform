@@ -17,11 +17,9 @@
         </sc-answer-datetime>
         <sc-answer-select data-ng-if="question.question === 'SELECT'" data-ng-model="answer.listValues" type="question.type" options="question.selectOptions" is-required="question.required" is-active="isActive">
         </sc-answer-select>
-
-        <!--
-        <sc-answer-select data-ng-if="question.question === 'SCALE'" data-ng-model="answer.integerValue" type="question.type" is-required="question.required" is-active="isActive">
-        </sc-answer-select>
-        <sc-answer-datagrid data-ng-if="question.question === 'GRID'" data-ng-model="answer.mapValues" type="question.type" is-required="question.required" is-active="isActive">
+        <sc-answer-scale data-ng-if="question.question === 'SCALE'" data-ng-model="answer.integerValue" min="question.min" max="question.max" tag1="question.tag1" tag2="question.tag2" is-required="question.required" is-active="isActive">
+        </sc-answer-scale>
+        <!--<sc-answer-datagrid data-ng-if="question.question === 'GRID'" data-ng-model="answer.mapValues" type="question.type" is-required="question.required" is-active="isActive">
         </sc-answer-datagrid>-->
       </div>
     </fieldset>
