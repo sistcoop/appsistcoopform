@@ -9,7 +9,7 @@ angular.module('forms').directive('scAnswerGrid', function () {
     },
     require: 'ngModel',
     replace: true,
-    templateUrl: 'scripts/directives/answer-scale/answer.scale.html',
+    templateUrl: 'scripts/directives/answer-grid/answer.grid.html',
     controller: ['$scope', function ($scope) {
 
     }],
