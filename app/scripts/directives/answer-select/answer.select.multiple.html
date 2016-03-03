@@ -4,7 +4,7 @@
       <li data-ng-repeat="item in options | orderBy: 'number' | filter: {editable: false}">
         <div class="input-group" style="padding: 5px;">
           <span class="input-group-addon" style="background-color: white; border: 0; text-align: left;">
-            <input type="radio" data-ng-model="$parent.selected" name="value" value="{{item.denomination}}">
+            <input type="radio" data-ng-model="$parent.selectedNotEditable" name="value" value="{{item.denomination}}">
             &nbsp;{{item.denomination}}
           </span>
         </div>
@@ -15,7 +15,7 @@
             <tr>
               <td>Otro:&nbsp;</td>
               <td>
-                <input type="text" data-ng-model="$parent.selected" class="form-control" placeholder="Respuesta">
+                <input type="text" data-ng-model="$parent.selectedEditable" class="form-control" placeholder="Respuesta">
               </td>
             </tr>
           </table>

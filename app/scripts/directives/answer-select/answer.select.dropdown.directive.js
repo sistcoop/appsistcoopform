@@ -21,13 +21,13 @@ angular.module('forms').directive('scAnswerSelectDropdown', function () {
         return ngModel.$modelValue;
       }, function (newValue, oldValue) {
         if(newValue) {
-          scope.selected = newValue;
+          scope.selected = newValue[0];
         }
       }, true);
 
       scope.$watchCollection('selected', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          ngModel.$setViewValue(scope.selected);
+          ngModel.$setViewValue([scope.selected]);
         }
       }, true);
     }

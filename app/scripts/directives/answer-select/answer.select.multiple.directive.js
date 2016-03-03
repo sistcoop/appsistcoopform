@@ -25,11 +25,19 @@ angular.module('forms').directive('scAnswerSelectMultiple', function () {
         }
       }, true);
 
-      scope.$watchCollection('selected', function (newVal, oldVal) {
+      scope.$watchCollection('selectedNotEditable', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          ngModel.$setViewValue(scope.selected);
+          scope.selectedEditable = undefined;
+          ngModel.$setViewValue([scope.selectedNotEditable]);
         }
       }, true);
+      scope.$watchCollection('selectedEditable', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          scope.selectedNotEditable = undefined;
+          ngModel.$setViewValue([scope.selectedEditable]);
+        }
+      }, true);
+
     }
   };
 });

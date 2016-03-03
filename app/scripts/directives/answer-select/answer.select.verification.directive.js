@@ -25,9 +25,20 @@ angular.module('forms').directive('scAnswerSelectVerification', function () {
         }
       }, true);
 
-      scope.$watchCollection('selected', function (newVal, oldVal) {
+      scope.$watchCollection('selectedEditable', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-          ngModel.$setViewValue(scope.selected);
+          if(!scope.selectedEditable) scope.selectedEditable = [];
+          if(!scope.selectedNotEditable) scope.selectedNotEditable = [];
+          var values = scope.selectedEditable.concat(scope.selectedNotEditable);
+          ngModel.$setViewValue(values);
+        }
+      }, true);
+      scope.$watchCollection('selectedNotEditable', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          if(!scope.selectedEditable) scope.selectedEditable = [];
+          if(!scope.selectedNotEditable) scope.selectedNotEditable = [];
+          var values = scope.selectedEditable.concat(scope.selectedNotEditable);
+          ngModel.$setViewValue(values);
         }
       }, true);
     }
